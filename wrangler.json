@@ -14,6 +14,6 @@
     }
   ],
   "routes": [
-    "outsideworx.net/*"
+    "outsideworx.net/admin/*"
   ]
 }
