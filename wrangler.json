@@ -12,5 +12,8 @@
       "database_name": "database",
       "database_id": "43903ec2-5cb8-4c42-b7c8-5617f546de14"
     }
+  ],
+  "routes": [
+    "outsideworx.net/*"
   ]
 }
