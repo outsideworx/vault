@@ -3,7 +3,7 @@ import renderHtml from './renderHtml';
 export default {
     async fetch(request, env) {
         const { DATABASE } = env;
-        const stmt = DATABASEX.prepare('SELECT * FROM soupkitchen');
+        const stmt = DATABASE.prepare('SELECT * FROM soupkitchen');
         const { results } = await stmt.all();
 
         return new Response(
