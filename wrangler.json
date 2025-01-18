@@ -6,7 +6,7 @@
   "observability": {
     "enabled": false
   },
-  "databases": [
+  "database": [
     {
       "binding": "DATABASE",
       "database_name": "database",
