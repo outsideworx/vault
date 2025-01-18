@@ -1,12 +1,18 @@
-import { html } from './renderHtml';
+import renderHtml from './renderHtml';
 
 export default {
     async fetch(request, env) {
         const { DATABASE } = env;
-        return new Response(html, {
-            headers: {
-                'content-type': 'text/html; charset=UTF-8'
+        const stmt = DATABASEX.prepare('SELECT * FROM soupkitchen');
+        const { results } = await stmt.all();
+
+        return new Response(
+            renderHtml(JSON.stringify(results, null, 2)),
+            {
+                headers: {
+                    'content-type': 'text/html'
+                },
             }
-        });
-    },
-};
+        )
+    }
+}
