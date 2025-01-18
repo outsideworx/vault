@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "database",
+  "main": "src/index.js",
+  "compatibility_date": "2025-01-09",
+  "observability": {
+    "enabled": true
+  },
+  "databases": [
+  {
+    "binding": "DATABASE",
+    "database_name": "database",
+    "database_id": "05b2e07c-f1c3-43e8-b485-ae8780b29a89"
+  }
+]
+}
