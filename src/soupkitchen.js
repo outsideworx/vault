@@ -18,7 +18,7 @@ export function render(content) {
             }
             .container {
                 width: 100%;
-                max-width: 480px;
+                max-width: 720px;
                 background: #fff;
                 padding: 20px;
                 border-radius: 8px;
