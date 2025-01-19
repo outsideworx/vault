@@ -8,139 +8,139 @@ export function render(content) {
         <title>Soup Kitchen admin</title>
         <link rel="stylesheet" href="style/admin.css">
         <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            margin-top: 20px;
-        }
-        .container h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        .file-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .custom-file-button {
-            background: #007BFF;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.2s;
-        }
-        .custom-file-button:hover {
-            background: #0056b3;
-        }
-        .upload-button {
-            background: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.2s;
-        }
-        .upload-button:hover {
-            background: #45a049;
-        }
-        .upload-button:disabled {
-            background: #ddd;
-            cursor: not-allowed;
-        }
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 15px;
-            display: none;
-        }
-        .thumbnails-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .thumbnail-wrapper {
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-        }
-        .thumbnail {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .thumbnail:hover {
-            transform: scale(1.1);
-            border-color: #4CAF50;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-        }
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-        }
-        .password-input {
-            padding: 10px 15px;
-            width: 80px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-            margin-right: 10px;
-            margin-left: 10px;
-        }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #f4f4f4;
+            }
+            .container {
+                width: 100%;
+                max-width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-top: 20px;
+            }
+            .container h1 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+            .file-input-wrapper {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+            .file-input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+            .custom-file-button {
+                background: #007BFF;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.2s;
+            }
+            .custom-file-button:hover {
+                background: #0056b3;
+            }
+            .upload-button {
+                background: #4CAF50;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.2s;
+            }
+            .upload-button:hover {
+                background: #45a049;
+            }
+            .upload-button:disabled {
+                background: #ddd;
+                cursor: not-allowed;
+            }
+            .error-message {
+                color: red;
+                font-size: 14px;
+                margin-top: 15px;
+                display: none;
+            }
+            .thumbnails-container {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .thumbnail-wrapper {
+                text-align: center;
+                font-size: 14px;
+                color: #555;
+            }
+            .thumbnail {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                cursor: pointer;
+                border: 2px solid #ddd;
+                border-radius: 4px;
+                transition: transform 0.2s, border-color 0.2s;
+            }
+            .thumbnail:hover {
+                transform: scale(1.1);
+                border-color: #4CAF50;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+            .modal img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 8px;
+            }
+            .modal-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 24px;
+                color: white;
+                cursor: pointer;
+            }
+            .password-input {
+                padding: 10px 15px;
+                width: 80px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
         </style>
     </head>
     <body>
