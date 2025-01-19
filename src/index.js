@@ -7,7 +7,7 @@ export default {
         const { results } = await stmt.all();
 
         return new Response(
-            renderHtml(window.location.pathname.split("/").pop(), JSON.stringify(results, null, 2)),
+            renderHtml('SOUPKITCHEN', JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
