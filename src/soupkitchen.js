@@ -18,7 +18,7 @@ export function render(content) {
             }
             .container {
                 width: 100%;
-                max-width: 400px;
+                max-width: 480px;
                 background: #fff;
                 padding: 20px;
                 border-radius: 8px;
@@ -143,7 +143,7 @@ export function render(content) {
         </style>
     </head>
     <body>
-    <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" width="480"/>
+    <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" width="360"/>
     <div class="container">
         <h1>Override a Menu item</h1>
         <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
