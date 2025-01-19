@@ -11,9 +11,9 @@ export default {
         const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
-        const module = import(`./${pathSegment}.js`)
+        const module = await import(`./${pathSegment}.js`)
         return new Response(
-            module.render(pathSegment, JSON.stringify(results, null, 2)),
+            module.render(JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
