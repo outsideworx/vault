@@ -9,11 +9,12 @@ function lastPathSegment(request) {
 export default {
     async fetch(request, env) {
         const {DATABASE} = env;
-        const stmt = DATABASE.prepare('SELECT * FROM soupkitchen');
+        const client = lastPathSegment(request);
+        const stmt = DATABASE.prepare('SELECT * FROM '.concat(client));
         const {results} = await stmt.all();
 
         return new Response(
-            renderHtml(lastPathSegment(request), JSON.stringify(results, null, 2)),
+            renderHtml(client, JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
