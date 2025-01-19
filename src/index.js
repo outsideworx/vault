@@ -17,7 +17,8 @@ export default {
         const pathSegment = lastPathSegment(request);
 
         if (method === "POST") {
-            console.log('POST method is not allowed.');
+            const payload = await request.json();
+            console.log("Received payload:", payload);
             return new Response('Method Not Allowed.', {status: 405});
         }
         if (!(pathSegment in moduleMap)) {
