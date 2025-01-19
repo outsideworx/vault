@@ -8,7 +8,7 @@ export default {
     async fetch(request, env) {
         const {DATABASE} = env;
         const pathSegment = lastPathSegment(request);
-        const stmt = DATABASE.prepare('SELECT * FROM ${pathSegment}');
+        const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
         const module = await import(`${pathSegment}.js`);
