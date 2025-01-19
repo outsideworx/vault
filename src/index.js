@@ -14,6 +14,11 @@ export default {
     async fetch(request, env) {
         const {DATABASE} = env;
         const pathSegment = lastPathSegment(request);
+        if (!(pathSegment in moduleMap)) {
+            console.log('Path segment is not in the module map.');
+            return new Response('Invalid input.', { status: 404 });
+        }
+
         const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
