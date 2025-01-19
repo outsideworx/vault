@@ -13,16 +13,16 @@ function lastPathSegment(request) {
 export default {
     async fetch(request, env) {
         const {DATABASE} = env;
+        const {method} = request;
         const pathSegment = lastPathSegment(request);
-        const { method } = request;
 
         if (method === "POST") {
             console.log('POST method is not allowed.');
-            return new Response('Method not allowed.', {status: 405});
+            return new Response('Method Not Allowed.', {status: 405});
         }
         if (!(pathSegment in moduleMap)) {
             console.log('Path segment is not in the module map.');
-            return new Response('Invalid input.', {status: 404});
+            return new Response('Not Found.', {status: 404});
         }
 
         const statement = DATABASE.prepare(`SELECT *
