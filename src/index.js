@@ -1,3 +1,5 @@
+import render from "./soupkitchen";
+
 function lastPathSegment(request) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
@@ -11,7 +13,7 @@ export default {
         const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
-        const module = await import(`./src/${pathSegment}.js`)
+        const module = await import(`./${pathSegment}.js`)
         return new Response(
             module.render(JSON.stringify(results, null, 2)),
             {
