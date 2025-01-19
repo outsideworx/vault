@@ -21,13 +21,13 @@ export default {
 
         const statement = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await statement.all();
-        return new Response(moduleMap[pathSegment](
-            JSON.stringify(results)),
+        return new Response(
+            moduleMap[pathSegment](results),
             {
                 headers: {
                     'content-type': 'text/html'
                 }
             }
-        )
+        );
     }
 }
