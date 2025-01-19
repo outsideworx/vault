@@ -19,15 +19,14 @@ export default {
             return new Response('Invalid input.', {status: 404});
         }
 
-        const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
-        const {results} = await stmt.all();
-
-        return new Response(
-            moduleMap[pathSegment](JSON.stringify(results)),
+        const statement = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
+        const {results} = await statement.all();
+        return new Response(moduleMap[pathSegment](
+            JSON.stringify(results)),
             {
                 headers: {
                     'content-type': 'text/html'
-                },
+                }
             }
         )
     }
