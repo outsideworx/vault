@@ -1,5 +1,3 @@
-import renderHtml from './renderHtml';
-
 function lastPathSegment(request) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
@@ -9,12 +7,13 @@ function lastPathSegment(request) {
 export default {
     async fetch(request, env) {
         const {DATABASE} = env;
-        const client = lastPathSegment(request);
-        const stmt = DATABASE.prepare('SELECT * FROM '.concat(client));
+        const pathSegment = lastPathSegment(request);
+        const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
+        const module = import(`./${pathSegment}.js`)
         return new Response(
-            renderHtml(client, JSON.stringify(results, null, 2)),
+            module.render(pathSegment, JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
