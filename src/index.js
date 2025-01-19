@@ -23,11 +23,7 @@ export default {
         const {results} = await statement.all();
         return new Response(
             moduleMap[pathSegment](results),
-            {
-                headers: {
-                    'content-type': 'text/html'
-                }
-            }
+            {headers: {'content-type': 'text/html'}}
         );
     }
 }
