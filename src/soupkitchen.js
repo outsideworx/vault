@@ -143,7 +143,7 @@ export function render(content) {
         </style>
     </head>
     <body>
-    <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" width="600"/>
+    <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" width="480"/>
     <div class="container">
         <h1>Override a Menu item</h1>
         <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
