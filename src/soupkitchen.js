@@ -153,7 +153,7 @@ export function render(content) {
             </div>
             <input type="password" id="passwordInput" class="password-input" placeholder="Enter PIN" required>
             <button type="submit" class="upload-button" disabled>Upload</button>
-            <p class="error-message" id="errorMessage">Invalid file name. Only menu.webp, menu1.webp, or menu2.webp are allowed.</p>
+            <p class="error-message" id="errorMessage">Invalid file name!.</p>
         </form>
     </div>
     
