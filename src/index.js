@@ -1,4 +1,4 @@
-import * as soupkitchenModule from './soupkitchen';
+import * as soupkitchenModule from './soupkitchen.js';
 
 const moduleMap = {
     soupkitchen: soupkitchenModule.render
