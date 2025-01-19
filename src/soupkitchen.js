@@ -162,15 +162,15 @@ export function render(content) {
         <div class="thumbnails-container">
             <div class="thumbnail-wrapper">
                 <img src="data:image/webp;base64,${content[0]?.desktop}" alt="Desktop: menu.webp" class="thumbnail" onclick="openModal(this.src)">
-                <p>Desktop:<br/>menu.webp</p>
+                <p>menu.webp</p>
             </div>
             <div class="thumbnail-wrapper">
                 <img src="data:image/webp;base64,${content[0]?.mobile1}" alt="Mobile: menu1.webp" class="thumbnail" onclick="openModal(this.src)">
-                <p>Mobile:<br/>menu1.webp</p>
+                <p>menu1.webp</p>
             </div>
             <div class="thumbnail-wrapper">
                 <img src="data:image/webp;base64,${content[0]?.mobile2}" alt="Mobile: menu2.webp" class="thumbnail" onclick="openModal(this.src)">
-                <p>Mobile:<br/>menu2.webp</p>
+                <p>menu2.webp</p>
             </div>
         </div>
     </div>
