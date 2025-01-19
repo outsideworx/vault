@@ -14,7 +14,7 @@ export function render(content) {
           <h1>🎉 Successfully connected to Soup Kitchen admin site.</h1>
         </header>
         <main>
-          <code><span style="color: #0E838F">&gt; </span>SELECT * FROM soupkitchen;<br/><br/>content.timestamp</code>
+          <code><span style="color: #0E838F">&gt; </span>SELECT * FROM soupkitchen;<br/><br/>${content.timestamp}</code>
         </main>
       </body>
     </html>
