@@ -1,4 +1,4 @@
-export default function render(content) {
+function render(content) {
     return `
     <!DOCTYPE html>
     <html lang="en">
