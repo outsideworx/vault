@@ -6,7 +6,6 @@ export function render(content) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Soup Kitchen admin</title>
-        <link rel="stylesheet" href="style/admin.css">
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -237,21 +236,19 @@ export function render(content) {
     <script>
         $(document).ready(function() {
             $('#uploadForm').on('submit', function(e) {
-                e.preventDefault();  // Prevents the form from submitting the traditional way
-        
-                var formData = $(this).serialize();  // Serializes the form data
-        
+                e.preventDefault();
+                var formData = $(this).serialize();
                 $.ajax({
-                    type: 'POST',  // Set the request type
-                    url: 'https://example.com/submit',  // Replace with your URL
-                    data: formData,  // Send the form data
+                    type: 'POST',
+                    url: 'https://outsideworx.net/admin/soupkitchen',
+                    data: formData,
                     success: function(response) {
                         alert('Form submitted successfully!');
-                        console.log(response);  // You can log the server's response here
+                        console.log(response);
                     },
                     error: function(xhr, status, error) {
                         alert('An error occurred. Please try again later.');
-                        console.error(error);  // Log any errors
+                        console.error(error);
                     }
                 });
             });
