@@ -17,7 +17,7 @@ export default {
         const pathSegment = lastPathSegment(request);
 
         if (method === "POST") {
-            const payload = await request.json();
+            const payload = await request.text();
             console.log("Received payload:", payload);
             return new Response('Method Not Allowed.', {status: 405});
         }
