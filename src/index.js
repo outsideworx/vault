@@ -1,3 +1,9 @@
+import * as soupkitchen from './soupkitchen';
+
+const moduleMap = {
+    'soupkitchen': soupkitchen.render
+};
+
 function lastPathSegment(request) {
     const url = new URL(request.url);
     const pathSegments = url.pathname.split('/').filter(Boolean);
@@ -11,9 +17,8 @@ export default {
         const stmt = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
         const {results} = await stmt.all();
 
-        const module = await import(`./src/${pathSegment}.js`);
         return new Response(
-            module.render(JSON.stringify(results, null, 2)),
+            moduleMap[pathSegment](JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
