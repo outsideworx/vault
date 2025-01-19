@@ -1,13 +1,19 @@
 import renderHtml from './renderHtml';
 
+function lastPathSegment(request) {
+    const url = new URL(request.url);
+    const pathSegments = url.pathname.split('/').filter(Boolean);
+    return pathSegments[pathSegments.length - 1];
+}
+
 export default {
     async fetch(request, env) {
-        const { DATABASE } = env;
+        const {DATABASE} = env;
         const stmt = DATABASE.prepare('SELECT * FROM soupkitchen');
-        const { results } = await stmt.all();
+        const {results} = await stmt.all();
 
         return new Response(
-            renderHtml('SOUPKITCHEN', JSON.stringify(results, null, 2)),
+            renderHtml(lastPathSegment(request), JSON.stringify(results, null, 2)),
             {
                 headers: {
                     'content-type': 'text/html'
