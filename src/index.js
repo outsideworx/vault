@@ -1,7 +1,7 @@
-import * as soupkitchen from './soupkitchen';
+import * as soupkitchenModule from './soupkitchen';
 
 const moduleMap = {
-    'soupkitchen': soupkitchen.render
+    soupkitchen: soupkitchenModule.render
 };
 
 function lastPathSegment(request) {
