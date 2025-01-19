@@ -11,9 +11,7 @@ export function render(content) {
     
       <body>
         <header>
-          <img
-            src="./../img/zinis.webp"
-          />
+          <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" />
           <h1>🎉 Successfully connected to SOUPKITCHEN admin site.</h1>
         </header>
         <main>
