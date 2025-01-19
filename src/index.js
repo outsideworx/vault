@@ -1,7 +1,7 @@
-import * as soupkitchenModule from './soupkitchen.js';
+import * as soupkitchen from './soupkitchen';
 
 const moduleMap = {
-    soupkitchen: soupkitchenModule.render
+    soupkitchen: soupkitchen.render
 };
 
 function lastPathSegment(request) {
@@ -18,7 +18,7 @@ export default {
         const {results} = await stmt.all();
 
         return new Response(
-            moduleMap[pathSegment](JSON.stringify(results, null, 2)),
+            moduleMap[pathSegment](JSON.stringify(results)),
             {
                 headers: {
                     'content-type': 'text/html'
