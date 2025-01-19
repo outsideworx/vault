@@ -14,8 +14,7 @@ export function render(content) {
           <h1>🎉 Successfully connected to SOUPKITCHEN admin site.</h1>
         </header>
         <main>
-          <p>Your D1 Database contains the following data:</p>
-          <pre><code><span style="color: #0E838F">&gt; </span>SELECT * FROM soupkitchen;<br>${content}</code></pre>
+          <code><span style="color: #0E838F">&gt; </span>SELECT * FROM soupkitchen;<br/><br/>${content}</code>
         </main>
       </body>
     </html>
