@@ -19,7 +19,7 @@ export default {
             return new Response('Invalid input.', {status: 404});
         }
 
-        const statement = DATABASE.prepare('SELECT * FROM '.concat(pathSegment));
+        const statement = DATABASE.prepare(`SELECT * FROM ${pathSegment} WHERE timestamp = (SELECT MAX(timestamp) FROM ${pathSegment})`);
         const {results} = await statement.all();
         return new Response(
             moduleMap[pathSegment](results),
