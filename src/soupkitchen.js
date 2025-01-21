@@ -177,7 +177,7 @@ export function render(content) {
 
     <div class="container">
         <h1>Development notes</h1>
-        <p>Have the files named as seen below.</p>
+        <p>Have the files named as seen above.</p>
         <p>Keep the size small to ease the traffic.</p>
         <p>Place the home buttons in their place.</p>
     </div>
