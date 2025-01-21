@@ -179,7 +179,7 @@ export function render(content) {
         <h1>Development notes</h1>
         <p>Have the files named as seen above.</p>
         <p>Keep the size small to ease the traffic.</p>
-        <p>Place the home buttons in their place.</p>
+        <p>Leave the home buttons in their place.</p>
     </div>
 
     <div id="imageModal" class="modal">
