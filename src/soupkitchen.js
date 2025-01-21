@@ -153,7 +153,7 @@ export function render(content) {
             </div>
             <input type="password" id="passwordInput" class="password-input" placeholder="Enter PIN" required>
             <button type="submit" class="upload-button" disabled>Upload</button>
-            <p class="error-message" id="errorMessage">Invalid file name!.</p>
+            <p class="error-message" id="errorMessage">Invalid file name!</p>
         </form>
     </div>
     
@@ -174,7 +174,14 @@ export function render(content) {
             </div>
         </div>
     </div>
-    
+
+    <div class="container">
+        <h1>Development notes</h1>
+        <p>Have the files named as seen below.</p>
+        <p>Keep the size small to ease the traffic.</p>
+        <p>Place the home buttons in their place.</p>
+    </div>
+
     <div id="imageModal" class="modal">
         <span class="modal-close" onclick="closeModal()">&times;</span>
         <img id="modalImage" src="" alt="Expanded Image">
