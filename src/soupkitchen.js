@@ -96,7 +96,7 @@ export function render(content) {
             .error-message {
                 color: red;
                 font-size: 14px;
-                margin-top: 15px;
+                margin-top: 20px;
                 display: none;
             }
             .thumbnails-container {
