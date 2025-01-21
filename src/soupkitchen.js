@@ -182,8 +182,6 @@ export function render(content) {
         <p>Leave the home buttons in their place.</p>
     </div>
     <br/>
-    <br/>
-    <br/>
 
     <div id="imageModal" class="modal">
         <span class="modal-close" onclick="closeModal()">&times;</span>
