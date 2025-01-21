@@ -66,7 +66,7 @@ export function render(content) {
             .custom-file-button {
                 background: #007BFF;
                 color: white;
-                padding: 15px 55px;
+                padding: 10px 65px;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
@@ -156,7 +156,6 @@ export function render(content) {
                 font-size: 16px;
                 margin-top: 10px;
                 margin-right: 10px;
-                margin-left: 10px;
             }
         </style>
     </head>
