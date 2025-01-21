@@ -31,6 +31,24 @@ export function render(content) {
                 font-size: 24px;
                 color: #333;
             }
+            .container-grey {
+                width: 100%;
+                max-width: 320px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-top: 20px;
+            }
+            .container-grey h1 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: grey;
+            }
+            .container-grey p {
+                color: grey;
+            }
             .file-input-wrapper {
                 position: relative;
                 display: inline-block;
@@ -48,7 +66,7 @@ export function render(content) {
             .custom-file-button {
                 background: #007BFF;
                 color: white;
-                padding: 10px 15px;
+                padding: 15px 55px;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
@@ -175,7 +193,7 @@ export function render(content) {
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-grey">
         <h1>Development notes</h1>
         <p>Have the files named as seen above.</p>
         <p>Keep the size small to ease the traffic.</p>
