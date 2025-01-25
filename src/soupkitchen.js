@@ -163,12 +163,12 @@ export function render(content) {
     <img src="https://outsideworx.net/assets/img/portfolio/soupkitchen.png" width="320px"/>
     <div class="container">
         <h1>Override a Menu item</h1>
-        <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+        <form id="uploadForm" enctype="multipart/form-data">
             <div class="file-input-wrapper">
                 <button type="button" class="custom-file-button">Select File</button>
-                <input type="file" name="uploadedFile" class="file-input" required>
+                <input type="file" id="uploadedFile" name="uploadedFile" class="file-input" required>
             </div>
-            <input type="password" id="passwordInput" class="password-input" placeholder="Enter PIN" required>
+            <input type="password" id="passwordInput" name="passwordInput" class="password-input" placeholder="Enter PIN" required>
             <button type="submit" class="upload-button" disabled>Upload</button>
             <p class="error-message" id="errorMessage">Invalid file name!</p>
         </form>
@@ -255,22 +255,21 @@ export function render(content) {
         }
     </script>
     <script>
-        $(document).ready(function() {
-            $('#uploadForm').on('submit', function(e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                console.log("Prepared payload: ", formData);
+        $(document).ready(function () {
+            $('#uploadForm').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
                 $.ajax({
-                    type: 'POST',
                     url: 'https://outsideworx.net/admin/soupkitchen',
+                    type: 'POST',
                     data: formData,
-                    success: function(response) {
-                        alert('Form submitted successfully!');
-                        console.log(response);
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log('File uploaded successfully:', response);
                     },
-                    error: function(xhr, status, error) {
-                        alert('An error occurred. Please try again later.');
-                        console.error(error);
+                    error: function (xhr, status, error) {
+                        console.error('Error during file upload:', error);
                     }
                 });
             });
