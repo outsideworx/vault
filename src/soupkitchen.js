@@ -14,12 +14,12 @@ export function render(content) {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                background-color: #f4f4f4;
+                background-color: #fff;
             }
             .container {
                 width: 100%;
                 max-width: 320px;
-                background: #fff;
+                background: #f4f4f4;
                 padding: 20px;
                 border-radius: 8px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -34,7 +34,7 @@ export function render(content) {
             .container-grey {
                 width: 100%;
                 max-width: 320px;
-                background: #fff;
+                background: #f4f4f4;
                 padding: 20px;
                 border-radius: 8px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
