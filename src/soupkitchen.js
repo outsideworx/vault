@@ -202,7 +202,7 @@ export function render(content) {
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const allowedFiles = ['menu.webp', 'menu1.webp', 'menu2.webp'];
+        const allowedFiles = ['menu.webp', 'menu_mobile.webp'];
         const fileInput = document.querySelector('.file-input');
         const customButton = document.querySelector('.custom-file-button');
         const uploadForm = document.getElementById('uploadForm');
