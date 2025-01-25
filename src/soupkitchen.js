@@ -259,6 +259,7 @@ export function render(content) {
             $('#uploadForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
+                console.log("Prepared payload: ", formData);
                 $.ajax({
                     type: 'POST',
                     url: 'https://outsideworx.net/admin/soupkitchen',
