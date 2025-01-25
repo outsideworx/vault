@@ -5,7 +5,7 @@ export function render(content) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Soup Kitchen admin</title>
+        <title>SoupKitchen admin</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -160,7 +160,7 @@ export function render(content) {
         </style>
     </head>
     <body>
-    <img src="https://outsideworx.net/assets/img/portfolio/zinis.png" width="360px"/>
+    <img src="https://outsideworx.net/assets/img/portfolio/soupkitchen.png" width="360px"/>
     <div class="container">
         <h1>Override a Menu item</h1>
         <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
@@ -178,16 +178,12 @@ export function render(content) {
         <h1>Current Menu</h1>
         <div class="thumbnails-container">
             <div class="thumbnail-wrapper">
-                <img src="data:image/webp;base64,${content[0]?.desktop}" alt="Desktop: menu.webp" class="thumbnail" onclick="openModal(this.src)">
+                <img src="data:image/webp;base64,${content[0]?.menu}" alt="Desktop: menu.webp" class="thumbnail" onclick="openModal(this.src)">
                 <p>menu.webp</p>
             </div>
             <div class="thumbnail-wrapper">
-                <img src="data:image/webp;base64,${content[0]?.mobile1}" alt="Mobile: menu1.webp" class="thumbnail" onclick="openModal(this.src)">
-                <p>menu1.webp</p>
-            </div>
-            <div class="thumbnail-wrapper">
-                <img src="data:image/webp;base64,${content[0]?.mobile2}" alt="Mobile: menu2.webp" class="thumbnail" onclick="openModal(this.src)">
-                <p>menu2.webp</p>
+                <img src="data:image/webp;base64,${content[0]?.menu_mobile}" alt="Mobile: menu_mobile.webp" class="thumbnail" onclick="openModal(this.src)">
+                <p>menu_mobile.webp</p>
             </div>
         </div>
     </div>
