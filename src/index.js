@@ -6,7 +6,7 @@ const moduleMap = {
         query: `SELECT t.* FROM soupkitchen t
                 JOIN (SELECT MAX(timestamp) AS latest_timestamp, menu, menu_mobile FROM soupkitchen GROUP BY menu, menu_mobile) 
                 latest ON t.timestamp = latest.latest_timestamp AND t.menu = latest.menu AND t.menu_mobile = latest.menu_mobile;`,
-        update: `INSERT INTO soupkitchen (timestamp, ${1}) VALUES (${0}, '${2}')`
+        update: (timestamp, fileName, file) => `INSERT INTO soupkitchen (timestamp, ${fileName}) VALUES (${timestamp}, '${file}')`
     }
 };
 
@@ -43,7 +43,7 @@ export default {
                 const uploadedFile = formData.get('uploadedFile');
                 const fileBuffer = await uploadedFile.arrayBuffer();
                 const base64 = arrayBufferToBase64(fileBuffer);
-                const statement = DATABASE.prepare(moduleMap[pathSegment]["update"].format(Date.now(), uploadedFile.name.split('.')[0], base64));
+                const statement = DATABASE.prepare(moduleMap[pathSegment]["update"](Date.now(), uploadedFile.name.split('.')[0], base64));
                 const result = await statement.run();
                 return new Response(result);
             }
