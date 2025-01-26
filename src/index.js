@@ -17,8 +17,9 @@ export default {
         const pathSegment = lastPathSegment(request);
 
         if (method === "POST") {
-            const payload = await request.text();
-            return new Response(payload);
+            const formData = await request.formData();
+            const passwordInput = formData.get('passwordInput');
+            return new Response(passwordInput);
         }
         if (!(pathSegment in moduleMap)) {
             console.log('Path segment is not in the module map.');
