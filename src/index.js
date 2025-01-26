@@ -43,7 +43,7 @@ export default {
                 const uploadedFile = formData.get('uploadedFile');
                 const fileBuffer = await uploadedFile.arrayBuffer();
                 const base64 = arrayBufferToBase64(fileBuffer);
-                const statement = DATABASE.prepare(moduleMap[pathSegment]["query"].format(Date.now(), uploadedFile.name.split('.')[0], base64));
+                const statement = DATABASE.prepare(moduleMap[pathSegment]["update"].format(Date.now(), uploadedFile.name.split('.')[0], base64));
                 const result = await statement.run();
                 return new Response(result);
             }
