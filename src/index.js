@@ -3,9 +3,7 @@ import * as soupkitchen from './soupkitchen';
 const moduleMap = {
     soupkitchen: {
         render: soupkitchen.render,
-        query: `
-                SELECT t.*
-                FROM soupkitchen t
+        query: `SELECT t.* FROM soupkitchen t
                 JOIN (SELECT MAX(timestamp) AS latest_timestamp, menu, menu_mobile FROM soupkitchen GROUP BY menu, menu_mobile) 
                 latest ON t.timestamp = latest.latest_timestamp AND t.menu = latest.menu AND t.menu_mobile = latest.menu_mobile;`
     }
@@ -30,7 +28,10 @@ export default {
         if (method === "POST") {
             const formData = await request.formData();
             const passwordInput = formData.get('passwordInput');
-            return new Response(passwordInput);
+            if (passwordInput === "1132") {
+                return new Response("Successful submission.");
+            }
+            return new Response('Forbidden.', {status: 403});
         }
 
         const statement = DATABASE.prepare(moduleMap[pathSegment]["query"]);
