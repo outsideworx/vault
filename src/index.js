@@ -18,8 +18,7 @@ export default {
 
         if (method === "POST") {
             const payload = await request.text();
-            console.log("Received payload: ", payload);
-            return new Response('Method Not Allowed.', {status: 405});
+            return new Response(payload);
         }
         if (!(pathSegment in moduleMap)) {
             console.log('Path segment is not in the module map.');
