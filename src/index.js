@@ -1,7 +1,14 @@
 import * as soupkitchen from './soupkitchen';
 
 const moduleMap = {
-    soupkitchen: soupkitchen.render
+    soupkitchen: {
+        render: soupkitchen.render,
+        query: `
+                SELECT t.*
+                FROM soupkitchen t
+                JOIN (SELECT MAX(timestamp) AS latest_timestamp, menu, menu_mobile FROM soupkitchen GROUP BY menu, menu_mobile) 
+                latest ON t.timestamp = latest.latest_timestamp AND t.menu = latest.menu AND t.menu_mobile = latest.menu_mobile;`
+    }
 };
 
 function lastPathSegment(request) {
@@ -16,20 +23,18 @@ export default {
         const {method} = request;
         const pathSegment = lastPathSegment(request);
 
+        if (!(pathSegment in moduleMap)) {
+            console.log('Path segment is not in the module map.');
+            return new Response('Not Found.', {status: 404});
+        }
         if (method === "POST") {
             const formData = await request.formData();
             const passwordInput = formData.get('passwordInput');
             return new Response(passwordInput);
         }
-        if (!(pathSegment in moduleMap)) {
-            console.log('Path segment is not in the module map.');
-            return new Response('Not Found.', {status: 404});
-        }
 
-        const statement = DATABASE.prepare(`SELECT *
-                                            FROM ${pathSegment}
-                                            WHERE timestamp = (SELECT MAX (timestamp) FROM ${pathSegment})`);
+        const statement = DATABASE.prepare(moduleMap[pathSegment]["query"]);
         const {results} = await statement.all();
-        return new Response(moduleMap[pathSegment](results), {headers: {'content-type': 'text/html'}});
+        return new Response(moduleMap[pathSegment]["render"](results), {headers: {'content-type': 'text/html'}});
     }
 }
