@@ -1,0 +1,9 @@
+services:
+  postgres:
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    image: postgres:16.2
+    ports:
+      - 5432:5432
+    restart: unless-stopped
