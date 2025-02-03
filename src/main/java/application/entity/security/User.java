@@ -14,8 +14,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "MEMBERS")
-public final class Member implements UserDetails {
+@Table(name = "USERS")
+public final class User implements UserDetails {
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
