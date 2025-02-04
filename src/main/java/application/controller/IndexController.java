@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 final class IndexController {
     @GetMapping("/")
     String index() {
-        return "Hello world!?";
+        return "Hello world!??";
     }
 }
