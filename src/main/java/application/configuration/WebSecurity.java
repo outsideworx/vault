@@ -14,7 +14,7 @@ class WebSecurity {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(requestMatcher -> requestMatcher
-                        .requestMatchers("/")
+                        .requestMatchers("/login", "/img/**")
                         .permitAll()
                         .anyRequest()
                         .hasAuthority("ROLE_USER"))
