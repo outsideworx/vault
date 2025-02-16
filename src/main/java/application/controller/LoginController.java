@@ -34,6 +34,7 @@ final class LoginController {
             log.error("Unsuccessful login try username[{}], password[{}].", username, password);
             return login;
             }
+        log.info("Successful login username[{}], password[{}].", username, password);
         return new ModelAndView("home");
     }
 }
