@@ -10,15 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequiredArgsConstructor
 final class LoginController {
-    @GetMapping("/login")
+    @GetMapping("/admin")
     ModelAndView index() {
-        return new ModelAndView("login");
+        return new ModelAndView("admin");
     }
 
-    @PostMapping("/login")
+    @PostMapping("/admin")
     ModelAndView login(@RequestParam String username, @RequestParam String password) {
         if (username.equals("asd@asd")) {
-            ModelAndView login = new ModelAndView("login");
+            ModelAndView login = new ModelAndView("admin");
             login.addObject("error", true);
             return login;
         }
