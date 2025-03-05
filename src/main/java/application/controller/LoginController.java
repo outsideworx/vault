@@ -17,19 +17,19 @@ import org.springframework.web.servlet.ModelAndView;
 final class LoginController {
     private final UserService userService;
 
-    @GetMapping("/admin")
-    ModelAndView index() {
-        return new ModelAndView("admin");
+    @GetMapping("/login")
+    ModelAndView login() {
+        return new ModelAndView("login");
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/login")
     ModelAndView login(@RequestParam String username, @RequestParam String password) {
         try {
             if (!userService.loadUserByUsername(username).getPassword().equals(password)) {
                 throw new BadCredentialsException("Invalid username or password.");
             }
         } catch (UsernameNotFoundException | BadCredentialsException ignore) {
-            ModelAndView login = new ModelAndView("admin");
+            ModelAndView login = new ModelAndView("login");
             login.addObject("error", true);
             log.error("Unsuccessful login try username[{}], password[{}].", username, password);
             return login;

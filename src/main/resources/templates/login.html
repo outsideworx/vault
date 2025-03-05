@@ -13,6 +13,7 @@
             background-color: #f4f4f4;
             font-family: Arial, sans-serif;
         }
+
         .login-container {
             background: white;
             padding: 20px; /* Add padding here */
@@ -21,12 +22,15 @@
             text-align: center;
             width: 300px;
         }
+
         .logo {
             margin-bottom: 20px;
         }
+
         .logo img {
             max-width: 100px;
         }
+
         .login-container input {
             width: 90%;
             padding: 10px;
@@ -34,6 +38,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .login-container button {
             width: 100%;
             padding: 10px;
@@ -44,6 +49,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .login-container button:hover {
             background: #0056b3;
         }
@@ -54,12 +60,15 @@
     <div class="logo">
         <img src="/img/logo.webp" alt="Logo">
     </div>
-    <form th:action="@{/admin}" method="post">
-        <div th:if="${error}" style="color: red; margin-bottom: 10px;">
-            Invalid email or password. Please try again.
-        </div>
+    <div th:if="${param.error}" style="color: red; margin-bottom: 10px;">
+        Invalid email or password!<br/>Please try again.
+    </div>
+    <div th:if="${param.logout}" style="color: darkcyan; margin-bottom: 10px;">
+        You have logged out.
+    </div>
+    <form th:action="@{/login}" method="POST">
         <label>
-            <input type="text" name="username" placeholder="Email" required>
+            <input type="text" name="username" placeholder="Username" required>
         </label>
         <label>
             <input type="password" name="password" placeholder="Password" required>

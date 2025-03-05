@@ -16,6 +16,6 @@ public final class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return usersRepository
                 .findById(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Member not found."));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found."));
     }
 }
