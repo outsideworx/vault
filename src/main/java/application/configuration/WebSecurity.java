@@ -13,13 +13,20 @@ class WebSecurity {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .authorizeHttpRequests(requestMatcher -> requestMatcher
-                        .requestMatchers("/admin", "/img/**")
+                .authorizeHttpRequests(httpRequest -> httpRequest
+                        .requestMatchers("/img/**")
                         .permitAll()
                         .anyRequest()
-                        .hasAuthority("ROLE_USER"))
+                        .authenticated())
+                .formLogin(httpRequest -> httpRequest
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/home"))
+                .logout(httpRequest -> httpRequest
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true))
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(httpBasic -> httpBasic.init(httpSecurity))
                 .build();
     }
 }

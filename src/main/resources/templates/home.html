@@ -38,14 +38,14 @@
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            background: #007bff;
+            background: #6e0c23;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         .login-container button:hover {
-            background: #0056b3;
+            background: #3e0202;
         }
     </style>
 </head>
@@ -55,6 +55,9 @@
         <img src="/img/logo.webp" alt="Logo">
     </div>
     <h1>You are logged in.</h1>
+    <form th:action="@{/logout}" method="POST">
+        <button type="submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>
