@@ -5,10 +5,9 @@ import application.entity.client.CiafoItem;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -22,8 +21,7 @@ class CiafoController implements ModelVisitor {
     private final CiafoRepository ciafoRepository;
 
     @PostMapping("/come-in-and-find-out/{category}")
-    String submit(@PathVariable String category, @ModelAttribute List<CiafoItem> items) {
-        ciafoRepository.saveItemsForcategory(category, items);
+    String submit(@PathVariable String category, @RequestParam Map<String, String> requestParams) {
         return "redirect:/home";
     }
 
