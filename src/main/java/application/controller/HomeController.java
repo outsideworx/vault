@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 class HomeController {
     private final Pattern addressDomainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
-    private final List<ModelCollector> models;
+    private final List<ModelVisitor> models;
 
     @GetMapping("/home")
     ModelAndView home() {
@@ -35,7 +35,7 @@ class HomeController {
     private Optional<ModelAndView> getModel(String viewName) {
         return models
                 .stream()
-                .map(ModelCollector::getModel)
+                .map(ModelVisitor::getModel)
                 .filter(model -> viewName.equals(model.getViewName()))
                 .findAny();
     }

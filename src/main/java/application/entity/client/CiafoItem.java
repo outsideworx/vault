@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class CiafoForm {
+public class CiafoItem {
     private Long id;
     private String description;
     private MultipartFile image1;

@@ -1,9 +1,10 @@
 package application.controller.client;
 
-import application.controller.ModelCollector;
-import application.entity.client.CiafoForm;
+import application.controller.ModelVisitor;
+import application.entity.client.CiafoItem;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,20 +16,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
-class CiafoController implements ModelCollector {
+class CiafoController implements ModelVisitor {
     private final CiafoRepository ciafoRepository;
 
-    @PostMapping("/home/{category}")
-    ModelAndView handleFormSubmit(@PathVariable String category, @ModelAttribute List<CiafoForm> items) {
-        return new ModelAndView("client/come-in-and-find-out");
+    @PostMapping("/come-in-and-find-out/{category}")
+    String submit(@PathVariable String category, @ModelAttribute List<CiafoItem> items) {
+        ciafoRepository.saveItemsForcategory(category, items);
+        return "redirect:/home";
     }
 
     @Override
     public ModelAndView getModel() {
         ModelAndView model = new ModelAndView("client/come-in-and-find-out");
-        Map<String, List<CiafoForm>> items = Map.of(
+        Map<String, List<CiafoItem>> items = Map.of(
                 "Furniture", ciafoRepository.getItemsForCategory("Furniture"),
                 "Clothing", ciafoRepository.getItemsForCategory("Clothing"),
                 "Jewelry", ciafoRepository.getItemsForCategory("Jewelry"),
