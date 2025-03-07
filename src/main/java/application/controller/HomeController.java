@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,14 +18,25 @@ import java.util.regex.Pattern;
 class HomeController {
     private final Pattern addressDomainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
+    private final List<ModelCollector> models;
+
     @GetMapping("/home")
     ModelAndView home() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Matcher matcher = addressDomainPattern.matcher(email);
-        if (!matcher.find()) {
-            throw new UsernameNotFoundException("Invalid email address.");
+        if (matcher.find()) {
+            return getModel("client/".concat(matcher.group(0)))
+                    .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
         }
-        return new ModelAndView(matcher.group(0));
+        throw new UsernameNotFoundException("Invalid email address.");
+    }
+
+    private Optional<ModelAndView> getModel(String viewName) {
+        return models
+                .stream()
+                .map(ModelCollector::getModel)
+                .filter(model -> viewName.equals(model.getViewName()))
+                .findAny();
     }
 }

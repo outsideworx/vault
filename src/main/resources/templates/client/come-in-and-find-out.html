@@ -38,7 +38,7 @@
 </head>
 <body>
 <div class="container mt-4">
-    <img src="/static/img/come-in-and-find-out.webp" alt="Come In And Find Out" class="title-image">
+    <img src="/img/client/come-in-and-find-out.webp" alt="" class="title-image">
 
     <div class="accordion" id="crudTables">
         <div th:each="category : ${categories}" class="accordion-item">
@@ -50,7 +50,7 @@
             <div th:id="'collapse' + ${category}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${category}" data-bs-parent="#crudTables">
                 <div class="accordion-body">
                     <form th:action="@{'/home/' + ${category}}" method="post" enctype="multipart/form-data" onsubmit="return filterCheckedRows(this)">
-                        <button class="btn btn-primary mb-2" type="button" th:onclick="'addRow(\'' + ${category} + '\')'">Add</button>
+                        <button class="btn btn-primary mb-2" type="button" th:attr="onclick='addRow(\'' + ${category} + '\')'">Add</button>
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -64,7 +64,7 @@
                             </tr>
                             </thead>
                             <tbody th:id="'tableBody' + ${category}">
-                            <tr th:each="item : ${itemsByCategory[category]}" th:classappend="${item.markedForDeletion} ? 'hidden-row' : ''">
+                            <tr th:each="item : ${items[category]}" th:classappend="${item.markedForDeletion} ? 'hidden-row' : ''">
                                 <td>
                                     <input type="checkbox" name="update" class="update-checkbox">
                                     <input type="hidden" name="delete" value="false">

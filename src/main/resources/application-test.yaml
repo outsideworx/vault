@@ -3,8 +3,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/
     username: admin
     password: admin
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
