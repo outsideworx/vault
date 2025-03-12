@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +29,9 @@ class CiafoController implements ModelVisitor {
 
     @PostMapping("/come-in-and-find-out/{category}")
     String submit(@PathVariable String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
-        ciafoRepository.saveAll(ciafoConverter.processRequestParams(category, params, files));
+        List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
+        ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
+        ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);
         ciafoConverter.getIdsToDelete(params).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
         return "redirect:/home";
     }
@@ -34,15 +39,15 @@ class CiafoController implements ModelVisitor {
     @Override
     public ModelAndView getModel() {
         ModelAndView model = new ModelAndView("client/come-in-and-find-out");
-        Map<String, List<CiafoItem>> items = Map.of(
-                "Furniture", ciafoRepository.getByCategory("Furniture"),
-                "Clothing", ciafoRepository.getByCategory("Clothing"),
-                "Jewelry", ciafoRepository.getByCategory("Jewelry"),
-                "Accessories", ciafoRepository.getByCategory("Accessories"),
-                "Art/Print", ciafoRepository.getByCategory("Art/Print"),
-                "Asiatica", ciafoRepository.getByCategory("Asiatica"),
-                "Curiosity", ciafoRepository.getByCategory("Curiosity")
-        );
+        Map<String, List<CiafoItem>> items = Stream.of(
+                        "Furniture",
+                        "Clothing",
+                        "Jewelry",
+                        "Accessories",
+                        "Art-Print",
+                        "Asiatica",
+                        "Curiosity")
+                .collect(Collectors.toMap(Function.identity(), ciafoRepository::getByCategory));
         model.addObject("items", items);
         List<String> categories = new ArrayList<>(items.keySet());
         Collections.sort(categories);

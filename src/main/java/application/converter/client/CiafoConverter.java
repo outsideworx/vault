@@ -20,7 +20,38 @@ import java.util.Optional;
 @Component
 public class CiafoConverter extends ItemsConverter {
 
-    public List<CiafoItem> processRequestParams(String category, Map<String, String> params, Map<String, MultipartFile> files) {
+    public List<CiafoItem> filterItemsToInsert(List<CiafoItem> items) {
+        return items
+                .stream()
+                .filter(item -> Objects.isNull(item.getId()))
+                .toList();
+    }
+
+    public List<CiafoItem> filterItemsToUpdate(List<CiafoItem> items) {
+        return items
+                .stream()
+                .filter(item -> Objects.nonNull(item.getId()))
+                .toList();
+    }
+
+    public List<Long> getIdsToDelete(Map<String, String> params) {
+        return getIterators(params)
+                .stream()
+                .filter(iterator -> {
+                    Optional<String> delete = getValue(params, iterator, "delete");
+                    return delete.map(Boolean::valueOf).orElse(false);
+                })
+                .map(iterator -> {
+                    return getValue(params, iterator, "id")
+                            .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
+                            .map(Long::valueOf)
+                            .orElse(null);
+                })
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public List<CiafoItem> processItems(String category, Map<String, String> params, Map<String, MultipartFile> files) {
         return getIterators(params)
                 .stream()
                 .map(iterator -> {
@@ -39,23 +70,6 @@ public class CiafoConverter extends ItemsConverter {
                     item.setImage4(getImageBytes(files, iterator, "image4"));
                     return item;
                 })
-                .toList();
-    }
-
-    public List<Long> getIdsToDelete(Map<String, String> params) {
-        return getIterators(params)
-                .stream()
-                .filter(iterator -> {
-                    Optional<String> delete = getValue(params, iterator, "delete");
-                    return delete.map(Boolean::valueOf).orElse(false);
-                })
-                .map(iterator -> {
-                    return getValue(params, iterator, "id")
-                            .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
-                            .map(Long::valueOf)
-                            .orElse(null);
-                })
-                .filter(Objects::nonNull)
                 .toList();
     }
 
