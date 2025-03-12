@@ -33,22 +33,10 @@ public class CiafoConverter extends ItemsConverter {
                     item.setDescription(getValue(params, iterator, "description")
                             .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
                             .orElse(null));
-                    byte[] image1 = getImageBytes(files, iterator, "image1");
-                    if (Objects.nonNull(image1)) {
-                        item.setImage1(reduceQuality(image1));
-                    }
-                    byte[] image2 = getImageBytes(files, iterator, "image2");
-                    if (Objects.nonNull(image2)) {
-                        item.setImage2(reduceQuality(image2));
-                    }
-                    byte[] image3 = getImageBytes(files, iterator, "image3");
-                    if (Objects.nonNull(image3)) {
-                        item.setImage3(reduceQuality(image3));
-                    }
-                    byte[] image4 = getImageBytes(files, iterator, "image4");
-                    if (Objects.nonNull(image4)) {
-                        item.setImage4(reduceQuality(image4));
-                    }
+                    item.setImage1(getImageBytes(files, iterator, "image1"));
+                    item.setImage2(getImageBytes(files, iterator, "image2"));
+                    item.setImage3(getImageBytes(files, iterator, "image3"));
+                    item.setImage4(getImageBytes(files, iterator, "image4"));
                     return item;
                 })
                 .toList();
@@ -81,6 +69,7 @@ public class CiafoConverter extends ItemsConverter {
                     }
                 })
                 .filter(bytes -> bytes.length > 0)
+                .map(this::reduceQuality)
                 .orElse(null);
     }
 

@@ -5,7 +5,6 @@ import application.converter.client.CiafoConverter;
 import application.entity.client.CiafoItem;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 class CiafoController implements ModelVisitor {
     private final CiafoConverter ciafoConverter;
 
@@ -29,10 +27,7 @@ class CiafoController implements ModelVisitor {
     @PostMapping("/come-in-and-find-out/{category}")
     String submit(@PathVariable String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
         ciafoRepository.saveAll(ciafoConverter.processRequestParams(category, params, files));
-        ciafoConverter.getIdsToDelete(params).forEach(id -> {
-            log.info("CIAFO item [{}] marked for removal.", id);
-            ciafoRepository.deleteByCategoryAndId(category, id);
-        });
+        ciafoConverter.getIdsToDelete(params).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
         return "redirect:/home";
     }
 
