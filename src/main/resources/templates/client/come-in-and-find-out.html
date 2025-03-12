@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Tables</title>
+    <title>Outside Worx</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .update-checkbox {
@@ -83,22 +83,22 @@
                                     <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="6" th:text="${item.description}"></textarea>
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image1Base64}" class="thumbnail">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image1Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image1|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image2Base64}" class="thumbnail">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image2Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image2|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image3Base64}" class="thumbnail" >
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image3Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image3|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image4Base64}" class="thumbnail">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image4Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
@@ -114,15 +114,29 @@
             </div>
         </div>
     </div>
-    <div id="warningModal" class="modal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal for warning message -->
+    <div id="warningModal" class="modal fade" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="warningModalLabel">File Warning</h5>
+                    <h5 class="modal-title" id="warningModalLabel">Warning!</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                     <p id="warningMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for fullscreen image -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="" alt="Fullscreen Image" id="fullscreenImage" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -145,22 +159,22 @@
             <textarea class="form-control" name="items[${tableSize}].description" rows="6"></textarea>
         </td>
         <td>
-            <img src="#" class="thumbnail" alt=""/>
+            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" th:name="|items[${tableSize}].image1|" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt=""/>
+            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" th:name="|items[${tableSize}].image2|" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt=""/>
+            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" th:name="|items[${tableSize}].image3|" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt=""/>
+            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" th:name="|items[${tableSize}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
@@ -203,9 +217,14 @@
             const fileType = file.type;
             const fileSize = file.size;
 
-            if (fileSize > 10 * 1024 * 1024 || fileType !== 'image/jpeg') {
-                showWarningModal("The selected file must be JPEG image and no larger than 10MB.");
+            const allowedTypes = [
+                'image/jpeg',
+                'image/png',
+                'image/gif'
+            ];
 
+            if (fileSize > 10 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
+                showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 10MB.");
                 input.value = '';
                 thumbnail.src = '';
                 button.textContent = "Choose File";
@@ -237,6 +256,12 @@
         const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
         warningModal.show();
     }
+
+    document.querySelectorAll('.thumbnail').forEach(item => {
+        item.addEventListener('click', function () {
+            document.getElementById('fullscreenImage').src = this.src;
+        });
+    });
 </script>
 </body>
 </html>
