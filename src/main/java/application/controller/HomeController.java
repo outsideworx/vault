@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequiredArgsConstructor
 class HomeController {
-    private final Pattern addressDomainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
+    private final Pattern domainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
     private final List<ModelVisitor> models;
 
@@ -24,7 +24,7 @@ class HomeController {
     ModelAndView home() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        Matcher matcher = addressDomainPattern.matcher(email);
+        Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
             return getModel("client/".concat(matcher.group(0)))
                     .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));

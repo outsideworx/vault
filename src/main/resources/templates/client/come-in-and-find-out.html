@@ -15,8 +15,8 @@
         }
         .thumbnail {
             display: block;
-            max-width: 100px;
-            max-height: 100px;
+            max-width: 256px;
+            max-height: 256px;
             margin: 5px auto;
         }
         .file-upload-button {
@@ -71,22 +71,22 @@
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
                                 <td>
-                                    <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="2" th:text="${item.description}"></textarea>
+                                    <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="8" th:text="${item.description}"></textarea>
                                 </td>
                                 <td>
-                                    <img th:src="${item.image1}" class="thumbnail" th:if="${item.image1}">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image1Base64}" class="thumbnail" th:if="${item.image1Base64 != null}">
                                     <input type="file" th:name="|items[${iter.index}].image1|" class="form-control file-upload-button">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image2}" class="thumbnail" th:if="${item.image2}">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image2Base64}" class="thumbnail" th:if="${item.image2Base64 != null}">
                                     <input type="file" th:name="|items[${iter.index}].image2|" class="form-control file-upload-button">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image3}" class="thumbnail" th:if="${item.image3}">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image3Base64}" class="thumbnail" th:if="${item.image3Base64 != null}">
                                     <input type="file" th:name="|items[${iter.index}].image3|" class="form-control file-upload-button">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image4}" class="thumbnail" th:if="${item.image4}">
+                                    <img th:src="'data:image/jpeg;base64,' + ${item.image4Base64}" class="thumbnail" th:if="${item.image4Base64 != null}">
                                     <input type="file" th:name="|items[${iter.index}].image4|" class="form-control file-upload-button">
                                 </td>
                                 <td>
@@ -117,7 +117,7 @@
             <input type="hidden" name="items[${tableSize}].id">
         </td>
         <td>
-            <textarea class="form-control" name="items[${tableSize}].description" rows="2"></textarea>
+            <textarea class="form-control" name="items[${tableSize}].description" rows="8"></textarea>
         </td>
         <td>
             <input type="file" name="items[${tableSize}].image1" class="form-control file-upload-button">

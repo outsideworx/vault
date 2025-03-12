@@ -1,9 +1,11 @@
 package application.controller.client;
 
 import application.controller.ModelVisitor;
+import application.converter.client.CiafoConverter;
 import application.entity.client.CiafoItem;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,11 +20,19 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 class CiafoController implements ModelVisitor {
+    private final CiafoConverter ciafoConverter;
+
     private final CiafoRepository ciafoRepository;
 
     @PostMapping("/come-in-and-find-out/{category}")
     String submit(@PathVariable String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
+        ciafoRepository.saveAll(ciafoConverter.processRequestParams(category, params, files));
+        ciafoConverter.getIdsToDelete(params).forEach(id -> {
+            log.info("CIAFO item [{}] marked for removal.", id);
+            ciafoRepository.deleteByCategoryAndId(category, id);
+        });
         return "redirect:/home";
     }
 
@@ -30,13 +40,13 @@ class CiafoController implements ModelVisitor {
     public ModelAndView getModel() {
         ModelAndView model = new ModelAndView("client/come-in-and-find-out");
         Map<String, List<CiafoItem>> items = Map.of(
-                "Furniture", ciafoRepository.getItemsForCategory("Furniture"),
-                "Clothing", ciafoRepository.getItemsForCategory("Clothing"),
-                "Jewelry", ciafoRepository.getItemsForCategory("Jewelry"),
-                "Accessories", ciafoRepository.getItemsForCategory("Accessories"),
-                "Art/Print", ciafoRepository.getItemsForCategory("Art/Print"),
-                "Asiatica", ciafoRepository.getItemsForCategory("Asiatica"),
-                "Curiosity", ciafoRepository.getItemsForCategory("Curiosity")
+                "Furniture", ciafoRepository.getByCategory("Furniture"),
+                "Clothing", ciafoRepository.getByCategory("Clothing"),
+                "Jewelry", ciafoRepository.getByCategory("Jewelry"),
+                "Accessories", ciafoRepository.getByCategory("Accessories"),
+                "Art/Print", ciafoRepository.getByCategory("Art/Print"),
+                "Asiatica", ciafoRepository.getByCategory("Asiatica"),
+                "Curiosity", ciafoRepository.getByCategory("Curiosity")
         );
         model.addObject("items", items);
         List<String> categories = new ArrayList<>(items.keySet());

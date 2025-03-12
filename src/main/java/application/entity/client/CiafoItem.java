@@ -1,16 +1,47 @@
 package application.entity.client;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Base64;
 
 @Data
+@Entity
+@Table(name = "CIAFO")
 public class CiafoItem {
+    @Id
+    @GeneratedValue
     private Long id;
+    private String category;
     private String description;
-    private MultipartFile image1;
-    private MultipartFile image2;
-    private MultipartFile image3;
-    private MultipartFile image4;
-    private boolean update;
-    private boolean delete;
+    private byte[] image1;
+    private byte[] image2;
+    private byte[] image3;
+    private byte[] image4;
+
+    public String getImage1Base64() {
+        return getBase64(image1);
+    }
+
+    public String getImage2Base64() {
+        return getBase64(image2);
+    }
+
+    public String getImage3Base64() {
+        return getBase64(image3);
+    }
+
+    public String getImage4Base64() {
+        return getBase64(image4);
+    }
+
+    private String getBase64(byte[] image) {
+        if (image == null) {
+            return null;
+        }
+        return Base64.getEncoder().encodeToString(image);
+    }
 }
