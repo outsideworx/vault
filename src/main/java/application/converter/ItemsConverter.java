@@ -1,5 +1,13 @@
 package application.converter;
 
+import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,5 +36,36 @@ public abstract class ItemsConverter {
                 .map(Integer::valueOf)
                 .distinct()
                 .toList();
+    }
+
+    protected byte[] getImageBytes(Map<String, MultipartFile> files, Integer iterator, String field) {
+        return getValue(files, iterator, field)
+                .map(multipartFile -> {
+                    try {
+                        return multipartFile.getBytes();
+                    } catch (IOException e) {
+                        throw new IllegalStateException("Image processing failed.", e);
+                    }
+                })
+                .filter(bytes -> bytes.length > 0)
+                .map(this::reduceQuality)
+                .orElse(null);
+    }
+
+    private byte[] reduceQuality(byte[] image) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(image));
+            int width = originalImage.getWidth();
+            int height = originalImage.getHeight();
+            Thumbnails.of(originalImage)
+                    .size((int) (width * 0.66), (int) (height * 0.66))
+                    .outputQuality(0.33)
+                    .outputFormat("jpeg")
+                    .toOutputStream(outputStream);
+        } catch (IOException e) {
+            throw new IllegalStateException("Image compression failed.", e);
+        }
+        return outputStream.toByteArray();
     }
 }

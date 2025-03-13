@@ -1,6 +1,4 @@
 spring:
-  jackson:
-    default-property-inclusion: NON_EMPTY
   jpa:
     generate-ddl: true
   servlet:

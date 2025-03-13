@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 import java.util.Base64;
@@ -16,6 +17,8 @@ public class CiafoItem {
     @GeneratedValue
     private Long id;
     private String category;
+    @Transient
+    private Boolean delete;
     private String description;
     private byte[] image1;
     private byte[] image2;

@@ -32,8 +32,8 @@ class CiafoController implements ModelVisitor {
         List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);
-        ciafoConverter.getIdsToDelete(params).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
-        return "redirect:/home";
+        ciafoConverter.filterIdsToDelete(items).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
+        return "redirect:/home?navigation=".concat(category);
     }
 
     @Override
