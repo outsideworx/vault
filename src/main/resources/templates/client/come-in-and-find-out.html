@@ -11,7 +11,7 @@
             margin: auto;
         }
 
-        td:nth-child(2) {
+        td:nth-child(1) {
             width: 25%;
         }
 
@@ -63,7 +63,6 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>Update</th>
                                 <th>Description</th>
                                 <th>Image 1</th>
                                 <th>Image 2</th>
@@ -74,11 +73,6 @@
                             </thead>
                             <tbody th:id="'tableBody' + ${category}">
                             <tr th:each="item, iter: ${items['__${category}__']}">
-                                <td>
-                                    <input type="checkbox" class="update-checkbox">
-                                    <input type="hidden" id="delete" th:name="|items[${iter.index}].delete|">
-                                    <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
-                                </td>
                                 <td>
                                     <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="6" th:text="${item.description}"></textarea>
                                 </td>
@@ -102,8 +96,15 @@
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
+                                    <br>
                                     <button class="btn btn-danger" type="button" onclick="markForDeletion(this)">X</button>
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" class="btn-check update-checkbox" th:id="'btn-check-outlined-' + ${category} + '-' + ${iter.index}" autocomplete="off">
+                                    <label class="btn btn-outline-success" th:for="'btn-check-outlined-' + ${category} + '-' + ${iter.index}">E</label>
+                                    <input type="hidden" id="delete" th:name="|items[${iter.index}].delete|">
+                                    <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
                             </tr>
                             </tbody>
@@ -151,11 +152,6 @@
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
         <td>
-            <input type="checkbox" class="update-checkbox">
-            <input type="hidden" id="delete" name="items[${tableSize}].delete">
-            <input type="hidden" name="items[${tableSize}].id">
-        </td>
-        <td>
             <textarea class="form-control" name="items[${tableSize}].description" rows="6"></textarea>
         </td>
         <td>
@@ -178,8 +174,15 @@
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" th:name="|items[${tableSize}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
-        <td>
+        <td style="text-align: center;">
+            <br>
             <button class="btn btn-danger" type="button" onclick="markForDeletion(this)">X</button>
+            <br>
+            <br>
+            <input type="checkbox" class="btn-check update-checkbox" id="btn-check-outlined-${category}-${tableSize}" autocomplete="off">
+            <label class="btn btn-outline-success" for="btn-check-outlined-${category}-${tableSize}">E</label>
+            <input type="hidden" id="delete" name="items[${tableSize}].delete">
+            <input type="hidden" name="items[${tableSize}].id">
         </td>
         `;
         tableBody.appendChild(newRow);
