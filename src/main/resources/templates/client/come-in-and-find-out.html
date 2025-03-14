@@ -69,29 +69,29 @@
                                     <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="6" th:text="${item.description}"></textarea>
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image1Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img th:src="${item.image1Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image1|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image2Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img th:src="${item.image2Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image2|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image3Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img th:src="${item.image3Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image3|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="'data:image/jpeg;base64,' + ${item.image4Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img th:src="${item.image4Base64}" class="thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td style="text-align: center;">
                                     <br>
                                     <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}">
-                                    <label class="btn btn-outline-danger" th:for="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}" title="Mark for removal."><i class="bi bi-trash"></i></label>
+                                    <label class="btn btn-outline-danger" th:for="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}" title="Mark for removal"><i class="bi bi-trash"></i></label>
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
                             </tr>
@@ -143,29 +143,29 @@
             <textarea class="form-control" name="items[${tableSize}].description" rows="6"></textarea>
         </td>
         <td>
-            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
+            <img src="" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" name="items[${tableSize}].image1" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
+            <img src="" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" name="items[${tableSize}].image2" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
+            <img src="" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" name="items[${tableSize}].image3" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td>
-            <img src="#" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
+            <img src="" class="thumbnail" alt="" data-bs-toggle="modal" data-bs-target="#imageModal"/>
             <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
             <input type="file" name="items[${tableSize}].image4" class="form-control d-none" onchange="updateButtonText(this)">
         </td>
         <td style="text-align: center;">
             <br>
             <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}">
-            <label class="btn btn-outline-danger" for="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}" title="Mark for removal."><i class="bi bi-trash"></i></label>
+            <label class="btn btn-outline-danger" for="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}" title="Mark for removal"><i class="bi bi-trash"></i></label>
             <input type="hidden" name="items[${tableSize}].id">
         </td>
         `;
@@ -192,10 +192,9 @@
                 'image/gif'
             ];
 
-            if (fileSize > 10 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
-                showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 10MB.");
+            if (fileSize > 5 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
+                showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 5MB.");
                 input.value = '';
-                thumbnail.src = '';
                 button.textContent = "Choose File";
                 button.classList.remove('btn-link');
                 return;

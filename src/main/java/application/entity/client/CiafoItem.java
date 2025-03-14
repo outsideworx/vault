@@ -45,6 +45,6 @@ public class CiafoItem {
         if (image == null) {
             return null;
         }
-        return Base64.getEncoder().encodeToString(image);
+        return "data:image/jpeg;base64,".concat(Base64.getEncoder().encodeToString(image));
     }
 }
