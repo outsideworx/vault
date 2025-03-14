@@ -4,6 +4,8 @@ services:
       POSTGRES_USER: $SPRING_DATASOURCE_USERNAME
       POSTGRES_PASSWORD: $SPRING_DATASOURCE_PASSWORD
     image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: unless-stopped
@@ -16,3 +18,5 @@ services:
     ports:
       - "8080:8080"
     restart: on-failure
+volumes:
+  postgres_data:
