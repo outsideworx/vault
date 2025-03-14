@@ -91,7 +91,7 @@
                                 <td style="text-align: center;">
                                     <br>
                                     <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}">
-                                    <label class="btn btn-outline-danger" th:for="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}"><i class="bi bi-trash"></i></label>
+                                    <label class="btn btn-outline-danger" th:for="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}" title="Mark for removal."><i class="bi bi-trash"></i></label>
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
                             </tr>
@@ -125,7 +125,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="" alt="Fullscreen Image" id="fullscreenImage" class="img-fluid">
+                    <img src="" alt="" id="fullscreenImage" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
         <td style="text-align: center;">
             <br>
             <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}">
-            <label class="btn btn-outline-danger" for="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}"><i class="bi bi-trash"></i></label>
+            <label class="btn btn-outline-danger" for="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}" title="Mark for removal."><i class="bi bi-trash"></i></label>
             <input type="hidden" name="items[${tableSize}].id">
         </td>
         `;
@@ -230,6 +230,10 @@
         item.addEventListener('click', function () {
             document.getElementById('fullscreenImage').src = this.src;
         });
+    });
+
+    document.getElementById('imageModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('fullscreenImage').src = '';
     });
 </script>
 </body>
