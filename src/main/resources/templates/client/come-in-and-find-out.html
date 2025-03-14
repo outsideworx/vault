@@ -39,7 +39,7 @@
 </head>
 <body>
 <div class="container mt-4 custom-container">
-    <img src="/img/client/come-in-and-find-out.webp" alt="" class="title-image">
+    <img src="/img/client/come-in-and-find-out.webp-XXX" alt="" class="title-image">
 
     <div class="accordion" id="crudTables">
         <div th:each="category : ${categories}" class="accordion-item">
@@ -90,7 +90,7 @@
                                 </td>
                                 <td style="text-align: center;">
                                     <br>
-                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}" autocomplete="off">
+                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}">
                                     <label class="btn btn-outline-danger" th:for="'btn-check-outlined-delete-' + ${category} + '-' + ${iter.index}"><i class="bi bi-trash"></i></label>
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
@@ -164,7 +164,7 @@
         </td>
         <td style="text-align: center;">
             <br>
-            <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}">
             <label class="btn btn-outline-danger" for="'btn-check-outlined-delete-' + ${category} + '-' + ${tableSize}"><i class="bi bi-trash"></i></label>
             <input type="hidden" name="items[${tableSize}].id">
         </td>
