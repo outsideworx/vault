@@ -29,7 +29,7 @@
             margin: 0 auto 20px;
             border: 2px solid black;
             border-radius: 25px;
-            max-width: 100%;
+            max-width: 66%;
             height: auto;
         }
 
@@ -51,7 +51,7 @@
             </h2>
             <div th:id="'collapse' + ${category}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${category}" data-bs-parent="#crudTables">
                 <div class="accordion-body">
-                    <form id="form-id" th:action="@{'/come-in-and-find-out/' + ${category}}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{'/come-in-and-find-out/' + ${category}}" method="post" enctype="multipart/form-data">
                         <button class="btn btn-primary mb-2" type="button" th:attr="onclick='addRow(\'' + ${category} + '\')'">Add</button>
                         <table class="table table-bordered">
                             <thead>
@@ -98,9 +98,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <button id="btn-submit" class="btn btn-success" type="submit">
+                        <button class="btn btn-success" type="submit">
                             Save changes
-                            <span id="spinner" class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
+                            <span class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
                         </button>
                     </form>
                 </div>
@@ -196,8 +196,8 @@
                 'image/gif'
             ];
 
-            if (fileSize > 5 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
-                showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 5MB.");
+            if (fileSize > 4 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
+                showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 4MB.");
                 input.value = '';
                 button.textContent = "Choose File";
                 button.classList.remove('btn-link');
@@ -239,9 +239,14 @@
         document.getElementById('fullscreenImage').src = '';
     });
 
-    document.getElementById('form-id').addEventListener('submit', function () {
-        document.getElementById('btn-submit').disabled = true;
-        document.getElementById('spinner').classList.remove('d-none');
+    document.querySelectorAll('button[type="submit"]').forEach(button => {
+        button.addEventListener('click', function () {
+            button.disabled = true;
+            button.querySelector('.spinner-border').classList.remove('d-none');
+            setTimeout(() => {
+                button.closest('form').submit();
+            }, 50);
+        });
     });
 </script>
 </body>
