@@ -24,8 +24,10 @@ class WebSecurity {
                         .defaultSuccessUrl("/home"))
                 .logout(httpRequest -> httpRequest
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/login?logout")
                         .invalidateHttpSession(true))
+                .sessionManagement(httpRequest -> httpRequest
+                        .invalidSessionUrl("/login?expired"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

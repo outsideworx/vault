@@ -98,7 +98,10 @@
                             </tr>
                             </tbody>
                         </table>
-                        <button id="btn-submit" class="btn btn-success" type="submit">Save changes</button>
+                        <button id="btn-submit" class="btn btn-success" type="submit">
+                            Save changes
+                            <span id="spinner" class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -238,6 +241,7 @@
 
     document.getElementById('form-id').addEventListener('submit', function () {
         document.getElementById('btn-submit').disabled = true;
+        document.getElementById('spinner').classList.remove('d-none');
     });
 </script>
 </body>
