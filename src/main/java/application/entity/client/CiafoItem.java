@@ -1,5 +1,6 @@
 package application.entity.client;
 
+import application.converter.ItemsConverter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -41,10 +42,12 @@ public class CiafoItem {
         return getBase64(image4);
     }
 
-    private String getBase64(byte[] image) {
-        if (image == null) {
+    private String getBase64(byte[] bytes) {
+        if (bytes == null) {
             return null;
         }
-        return "data:image/jpeg;base64,".concat(Base64.getEncoder().encodeToString(image));
+        byte[] reducedBytes = ItemsConverter.reduceQuality(bytes, 0.33, 0.33, 1);
+        String base64String = Base64.getEncoder().encodeToString(reducedBytes);
+        return "data:image/jpeg;base64,".concat(base64String);
     }
 }

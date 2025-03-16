@@ -48,19 +48,19 @@ public abstract class ItemsConverter {
                     }
                 })
                 .filter(bytes -> bytes.length > 0)
-                .map(this::reduceQuality)
+                .map(bytes -> reduceQuality(bytes, 0.33, 0.33, 0.5))
                 .orElse(null);
     }
 
-    private byte[] reduceQuality(byte[] image) {
+    public static byte[] reduceQuality(byte[] bytes, double widthQuality, double heightQuality, double outputQuality) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
-            BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(image));
-            int width = originalImage.getWidth();
-            int height = originalImage.getHeight();
-            Thumbnails.of(originalImage)
-                    .size((int) (width * 0.66), (int) (height * 0.66))
-                    .outputQuality(0.33)
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
+            int width = image.getWidth();
+            int height = image.getHeight();
+            Thumbnails.of(image)
+                    .size((int) (width * widthQuality), (int) (height * heightQuality))
+                    .outputQuality(outputQuality)
                     .outputFormat("jpeg")
                     .toOutputStream(outputStream);
         } catch (IOException e) {
