@@ -20,14 +20,7 @@ class WebSecurity {
                         .authenticated())
                 .formLogin(httpRequest -> httpRequest
                         .loginPage("/login")
-                        .permitAll()
-                        .defaultSuccessUrl("/home"))
-                .logout(httpRequest -> httpRequest
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                        .invalidateHttpSession(true))
-                .sessionManagement(httpRequest -> httpRequest
-                        .invalidSessionUrl("/login?expired"))
+                        .permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

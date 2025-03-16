@@ -21,7 +21,7 @@ class HomeController {
 
     private final List<ModelVisitor> models;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     ModelAndView home(@RequestParam(required = false) String navigation) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
