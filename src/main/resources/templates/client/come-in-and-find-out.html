@@ -99,7 +99,7 @@
                                 </td>
                                 <td style="text-align: center;">
                                     <br>
-                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}">
+                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].sold|" th:id="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}">
                                     <label class="btn btn-outline-success" th:for="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}" title="Mark as sold"><i class="bi bi-currency-dollar"></i></label>
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
@@ -163,7 +163,7 @@
         </td>
         <td style="text-align: center;">
             <br>
-            <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}">
+            <input type="checkbox" class="btn-check" name="items[${tableSize}].sold" id="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}">
             <label class="btn btn-outline-success" for="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}" title="Mark as sold"><i class="bi bi-currency-dollar"></i></label>
             <input type="hidden" name="items[${tableSize}].id">
         </td>

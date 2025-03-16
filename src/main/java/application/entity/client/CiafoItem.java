@@ -19,7 +19,7 @@ public class CiafoItem {
     private Long id;
     private String category;
     @Transient
-    private Boolean delete;
+    private Boolean sold;
     private String description;
     private byte[] image1;
     private byte[] image2;

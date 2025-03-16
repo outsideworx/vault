@@ -17,7 +17,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.isNull(item.getId()))
-                .filter(item -> !item.getDelete())
+                .filter(item -> !item.getSold())
                 .toList();
     }
 
@@ -25,7 +25,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(item -> !item.getDelete())
+                .filter(item -> !item.getSold())
                 .toList();
     }
 
@@ -33,7 +33,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(CiafoItem::getDelete)
+                .filter(CiafoItem::getSold)
                 .map(CiafoItem::getId)
                 .toList();
     }
@@ -48,12 +48,12 @@ public class CiafoConverter extends ItemsConverter {
                             .map(Long::valueOf)
                             .orElse(null));
                     item.setCategory(category);
-                    item.setDelete(getValue(params, iterator, "delete")
-                            .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
+                    item.setSold(getValue(params, iterator, "sold")
+                            .filter(sold -> !StringUtils.isEmptyOrWhitespace(sold))
                             .map("on"::equals)
                             .orElse(false));
                     item.setDescription(getValue(params, iterator, "description")
-                            .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
+                            .filter(description -> !StringUtils.isEmptyOrWhitespace(description))
                             .orElse(null));
                     item.setImage1(getImageBytes(files, iterator, "image1"));
                     item.setImage2(getImageBytes(files, iterator, "image2"));
