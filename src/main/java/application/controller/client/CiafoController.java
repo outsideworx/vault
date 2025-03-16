@@ -33,7 +33,7 @@ class CiafoController implements ModelVisitor {
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);
         ciafoConverter.filterIdsToDelete(items).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
-        return "redirect:/home?navigation=".concat(category);
+        return "redirect:/?navigation=".concat(category);
     }
 
     @Override
