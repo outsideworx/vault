@@ -46,7 +46,7 @@ public class CiafoItem {
         if (bytes == null) {
             return null;
         }
-        byte[] reducedBytes = ItemsConverter.reduceQuality(bytes, 0.33, 0.33, 1);
+        byte[] reducedBytes = ItemsConverter.reduceQuality(bytes, 192, 108, Float.NaN);
         String base64String = Base64.getEncoder().encodeToString(reducedBytes);
         return "data:image/jpeg;base64,".concat(base64String);
     }

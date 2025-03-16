@@ -48,18 +48,21 @@ public abstract class ItemsConverter {
                     }
                 })
                 .filter(bytes -> bytes.length > 0)
-                .map(bytes -> reduceQuality(bytes, 0.33, 0.33, 0.5))
+                .map(bytes -> reduceQuality(bytes, 1280, 720, 0.5))
                 .orElse(null);
     }
 
-    public static byte[] reduceQuality(byte[] bytes, double widthQuality, double heightQuality, double outputQuality) {
+    public static byte[] reduceQuality(byte[] bytes, double desiredWidth, double desiredHeight, double outputQuality) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
             int width = image.getWidth();
             int height = image.getHeight();
+            double scale = Math.min(desiredWidth / width, desiredHeight / height);
+            width = (int) (width * scale);
+            height = (int) (height * scale);
             Thumbnails.of(image)
-                    .size((int) (width * widthQuality), (int) (height * heightQuality))
+                    .size(width, height)
                     .outputQuality(outputQuality)
                     .outputFormat("jpeg")
                     .toOutputStream(outputStream);
