@@ -1,6 +1,7 @@
 package application.repository.client;
 
 import application.entity.client.CiafoItem;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Transactional
 public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
+    @Cacheable(value = "items", key = "#category")
     List<CiafoItem> getByCategory(String category);
     void deleteByCategoryAndId(String category, Long id);
     @Modifying
