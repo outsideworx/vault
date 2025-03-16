@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,13 +21,12 @@ class HomeController {
     private final List<ModelVisitor> models;
 
     @GetMapping("/")
-    ModelAndView home(@RequestParam(required = false) String navigation) {
+    ModelAndView home() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
             return getModel("client/".concat(matcher.group(0)))
-                    .map(model -> model.addObject("navigation", navigation))
                     .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
         }
         throw new UsernameNotFoundException("Invalid email address.");
