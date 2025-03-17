@@ -15,13 +15,13 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequiredArgsConstructor
-class HomeController {
+class IndexController {
     private final Pattern domainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
     private final List<ModelVisitor> models;
 
     @GetMapping("/")
-    ModelAndView home() {
+    ModelAndView index() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
