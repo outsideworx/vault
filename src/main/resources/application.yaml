@@ -1,7 +1,5 @@
 server:
   port: 443
-  ssl:
-    key-store: classpath:keystore.p12
 spring:
   jpa:
     generate-ddl: true
