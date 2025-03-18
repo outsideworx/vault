@@ -61,12 +61,12 @@
                 <div class="accordion-body">
                     <form th:action="@{'/come-in-and-find-out/' + ${category}}" method="post" enctype="multipart/form-data">
                         <button class="btn btn-success mb-3 me-2" type="submit">
-                            <i class="bi bi-floppy"></i>
+                            <i class="bi bi-floppy me-1"></i>
                             Save changes
                             <span class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
                         </button>
                         <button class="btn btn-outline-primary mb-3" type="button" th:attr="onclick='addRow(\'' + ${category} + '\')'"  >
-                            <i class="bi bi-plus"></i>
+                            <i class="bi bi-plus-lg"></i>
                             New item
                         </button>
                         <table class="table table-bordered">
