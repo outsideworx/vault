@@ -194,11 +194,6 @@
             if (fileSize > 4 * 1024 * 1024 || !allowedTypes.includes(fileType)) {
                 showWarningModal("The selected file must be a valid image (JPEG, PNG or GIF) and no larger than 4MB.");
                 input.value = '';
-                thumbnail.src = '';
-                thumbnail.classList.remove('thumbnail-filled');
-                thumbnail.classList.add('thumbnail-empty');
-                button.textContent = "Choose File";
-                button.classList.remove('btn-link');
                 return;
             }
 
@@ -216,9 +211,6 @@
                 thumbnail.classList.add('thumbnail-filled');
             };
             reader.readAsDataURL(file);
-        } else {
-            button.textContent = "Choose File";
-            button.classList.remove('btn-link');
         }
     }
 
