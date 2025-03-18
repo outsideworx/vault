@@ -17,7 +17,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.isNull(item.getId()))
-                .filter(item -> !item.getSold())
+                .filter(item -> !item.getDelete())
                 .toList();
     }
 
@@ -25,7 +25,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(item -> !item.getSold())
+                .filter(item -> !item.getDelete())
                 .toList();
     }
 
@@ -33,7 +33,7 @@ public class CiafoConverter extends ItemsConverter {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(CiafoItem::getSold)
+                .filter(CiafoItem::getDelete)
                 .map(CiafoItem::getId)
                 .toList();
     }
@@ -48,8 +48,8 @@ public class CiafoConverter extends ItemsConverter {
                             .map(Long::valueOf)
                             .orElse(null));
                     item.setCategory(category);
-                    item.setSold(getValue(params, iterator, "sold")
-                            .filter(sold -> !StringUtils.isEmptyOrWhitespace(sold))
+                    item.setDelete(getValue(params, iterator, "delete")
+                            .filter(delete -> !StringUtils.isEmptyOrWhitespace(delete))
                             .map("on"::equals)
                             .orElse(false));
                     item.setDescription(getValue(params, iterator, "description")

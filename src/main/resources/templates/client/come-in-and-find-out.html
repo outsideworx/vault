@@ -60,7 +60,15 @@
             <div th:id="'collapse' + ${category}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${category}" data-bs-parent="#crudTables">
                 <div class="accordion-body">
                     <form th:action="@{'/come-in-and-find-out/' + ${category}}" method="post" enctype="multipart/form-data">
-                        <button class="btn btn-outline-primary mb-2" type="button" th:attr="onclick='addRow(\'' + ${category} + '\')'" title="Add"><i class="bi bi-plus"></i></button>
+                        <button class="btn btn-success mb-3 me-2" type="submit">
+                            <i class="bi bi-floppy"></i>
+                            Save changes
+                            <span class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" type="button" th:attr="onclick='addRow(\'' + ${category} + '\')'"  >
+                            <i class="bi bi-plus"></i>
+                            New item
+                        </button>
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -99,17 +107,13 @@
                                 </td>
                                 <td style="text-align: center;">
                                     <br>
-                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].sold|" th:id="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}">
-                                    <label class="btn btn-outline-success" th:for="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}" title="Mark as sold"><i class="bi bi-currency-dollar"></i></label>
+                                    <input type="checkbox" class="btn-check" th:name="|items[${iter.index}].delete|" th:id="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}">
+                                    <label class="btn btn-outline-danger" th:for="'btn-check-outlined-success-' + ${category} + '-' + ${iter.index}" title="Mark as deleted"><i class="bi bi-trash"></i></label>
                                     <input type="hidden" th:name="|items[${iter.index}].id|" th:value="${item.id}">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-warning" type="submit">
-                            Save
-                            <span class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
-                        </button>
                     </form>
                 </div>
             </div>
@@ -163,12 +167,12 @@
         </td>
         <td style="text-align: center;">
             <br>
-            <input type="checkbox" class="btn-check" name="items[${tableSize}].sold" id="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}">
-            <label class="btn btn-outline-success" for="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}" title="Mark as sold"><i class="bi bi-currency-dollar"></i></label>
+            <input type="checkbox" class="btn-check" name="items[${tableSize}].delete" id="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}">
+            <label class="btn btn-outline-danger" for="'btn-check-outlined-success-' + ${category} + '-' + ${tableSize}" title="Mark as deleted"><i class="bi bi-trash"></i></label>
             <input type="hidden" name="items[${tableSize}].id">
         </td>
         `;
-        tableBody.appendChild(newRow);
+        tableBody.insertBefore(newRow, tableBody.firstChild);
     }
 
     function selectFile(button) {
