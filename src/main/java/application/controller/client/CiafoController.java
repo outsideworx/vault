@@ -25,7 +25,7 @@ class CiafoController implements ModelVisitor {
 
     private final CiafoRepository ciafoRepository;
 
-    @CacheEvict(value = "items", key = "#category")
+    @CacheEvict(value = "items", allEntries = true)
     @PostMapping("/come-in-and-find-out/{category}")
     public String submit(@PathVariable String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
         List<CiafoItem> items = ciafoConverter.processItems(category, params, files);

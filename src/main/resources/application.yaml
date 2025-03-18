@@ -1,6 +1,10 @@
 server:
   port: 443
 spring:
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=64
   jpa:
     generate-ddl: true
   servlet:
