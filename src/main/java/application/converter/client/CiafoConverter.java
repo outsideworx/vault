@@ -55,10 +55,14 @@ public class CiafoConverter extends ItemsConverter {
                     item.setDescription(getValue(params, iterator, "description")
                             .filter(description -> !StringUtils.isEmptyOrWhitespace(description))
                             .orElse(null));
-                    item.setImage1(getImageBytes(files, iterator, "image1"));
-                    item.setImage2(getImageBytes(files, iterator, "image2"));
-                    item.setImage3(getImageBytes(files, iterator, "image3"));
-                    item.setImage4(getImageBytes(files, iterator, "image4"));
+                    item.setImage1(getImage(files, iterator, "image1"));
+                    item.setImage2(getImage(files, iterator, "image2"));
+                    item.setImage3(getImage(files, iterator, "image3"));
+                    item.setImage4(getImage(files, iterator, "image4"));
+                    item.setThumbnail1(getThumbnail(files, iterator, "image1"));
+                    item.setThumbnail2(getThumbnail(files, iterator, "image2"));
+                    item.setThumbnail3(getThumbnail(files, iterator, "image3"));
+                    item.setThumbnail4(getThumbnail(files, iterator, "image4"));
                     return item;
                 })
                 .toList();

@@ -86,22 +86,22 @@
                                     <textarea class="form-control" th:name="|items[${iter.index}].description|" rows="6" th:text="${item.description}"></textarea>
                                 </td>
                                 <td>
-                                    <img th:src="${item.image1Base64}" th:classappend="${item.image1Base64} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
+                                    <img th:src="${item.thumbnail1}" th:classappend="${item.thumbnail1} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image1|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image2Base64}" th:classappend="${item.image2Base64} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
+                                    <img th:src="${item.thumbnail2}" th:classappend="${item.thumbnail2} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image2|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image3Base64}" th:classappend="${item.image3Base64} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
+                                    <img th:src="${item.thumbnail3}" th:classappend="${item.thumbnail3} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image3|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>
                                 <td>
-                                    <img th:src="${item.image4Base64}" th:classappend="${item.image4Base64} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
+                                    <img th:src="${item.thumbnail4}" th:classappend="${item.thumbnail4} ?'thumbnail-filled':'thumbnail-empty'" class="thumbnail-base">
                                     <button type="button" class="btn btn-light file-upload-button" onclick="selectFile(this)">Choose File</button>
                                     <input type="file" th:name="|items[${iter.index}].image4|" class="form-control d-none" onchange="updateButtonText(this)">
                                 </td>

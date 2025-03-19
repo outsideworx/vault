@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +39,15 @@ public abstract class ItemsConverter {
                 .toList();
     }
 
-    protected byte[] getImageBytes(Map<String, MultipartFile> files, Integer iterator, String field) {
+    protected String getImage(Map<String, MultipartFile> files, Integer iterator, String field) {
+        return convertToBase64(files, iterator, field, 1280, 720);
+    }
+
+    protected String getThumbnail(Map<String, MultipartFile> files, Integer iterator, String field) {
+        return convertToBase64(files, iterator, field, 192, 108);
+    }
+
+    private String convertToBase64(Map<String, MultipartFile> files, Integer iterator, String field, double desiredWidth, double desiredHeight) {
         return getValue(files, iterator, field)
                 .map(multipartFile -> {
                     try {
@@ -48,11 +57,13 @@ public abstract class ItemsConverter {
                     }
                 })
                 .filter(bytes -> bytes.length > 0)
-                .map(bytes -> reduceQuality(bytes, 1280, 720, 0.5))
+                .map(bytes -> reduceQuality(bytes, desiredWidth, desiredHeight))
+                .map(bytes -> Base64.getEncoder().encodeToString(bytes))
+                .map("data:image/jpeg;base64,"::concat)
                 .orElse(null);
     }
 
-    public static byte[] reduceQuality(byte[] bytes, double desiredWidth, double desiredHeight, double outputQuality) {
+    private byte[] reduceQuality(byte[] bytes, double desiredWidth, double desiredHeight) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
@@ -63,7 +74,7 @@ public abstract class ItemsConverter {
             height = (int) (height * scale);
             Thumbnails.of(image)
                     .size(width, height)
-                    .outputQuality(outputQuality)
+                    .outputQuality(Float.NaN)
                     .outputFormat("jpeg")
                     .toOutputStream(outputStream);
         } catch (IOException e) {

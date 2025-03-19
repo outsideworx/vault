@@ -3,6 +3,7 @@ package application.controller.client;
 import application.controller.ModelVisitor;
 import application.converter.client.CiafoConverter;
 import application.entity.client.CiafoItem;
+import application.entity.client.CiafoThumbnails;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -46,9 +47,9 @@ class CiafoController implements ModelVisitor {
                 "Art-Print",
                 "Asiatica",
                 "Curiosity");
-        Map<String, List<CiafoItem>> items = categories
+        Map<String, List<CiafoThumbnails>> items = categories
                 .parallelStream()
-                .collect(Collectors.toMap(Function.identity(), ciafoRepository::getByCategory));
+                .collect(Collectors.toMap(Function.identity(), ciafoRepository::getThumbnailsByCategory));
         model.addObject("items", items);
         model.addObject("categories", categories);
         return model;
