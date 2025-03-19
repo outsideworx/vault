@@ -24,17 +24,17 @@ public class CiafoItem {
     @Column(columnDefinition = "TEXT")
     private String image1;
     @Column(columnDefinition = "TEXT")
-    private String thumbnail1;
-    @Column(columnDefinition = "TEXT")
     private String image2;
-    @Column(columnDefinition = "TEXT")
-    private String thumbnail2;
     @Column(columnDefinition = "TEXT")
     private String image3;
     @Column(columnDefinition = "TEXT")
-    private String thumbnail3;
-    @Column(columnDefinition = "TEXT")
     private String image4;
+    @Column(columnDefinition = "TEXT")
+    private String thumbnail1;
+    @Column(columnDefinition = "TEXT")
+    private String thumbnail2;
+    @Column(columnDefinition = "TEXT")
+    private String thumbnail3;
     @Column(columnDefinition = "TEXT")
     private String thumbnail4;
 }
