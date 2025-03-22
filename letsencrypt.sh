@@ -12,12 +12,7 @@ if [ "$1" == "--remote" ]; then
     echo "Uploading script and .env file to $SERVER_IP"
     scp "$(realpath "$0")" "$SCRIPT_DIR/.env" root@"$SERVER_IP":/root/
     echo "Upload completed successfully."
-
-    ssh root@"$SERVER_IP" <<EOF
-        bash /root/$(basename "$0")
-        echo '0 0 1 * * bash /root/$(basename "$0")' | crontab -
-        echo "Cron job added to run the script on the 1st day of each month."
-EOF
+    ssh root@"$SERVER_IP" "bash /root/$(basename "$0")"
     exit 0
 fi
 
