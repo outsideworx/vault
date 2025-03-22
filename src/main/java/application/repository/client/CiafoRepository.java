@@ -30,7 +30,7 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     ORDER BY id
                     LIMIT 6 OFFSET :offset
             """, nativeQuery = true)
-    List<CiafoImages> getByImagesCategory(@Param("category") String category, @Param("offset") int offset);
+    List<CiafoImages> getImagesByCategory(@Param("category") String category, @Param("offset") int offset);
 
     void deleteByCategoryAndId(String category, Long id);
 
