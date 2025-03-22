@@ -16,7 +16,7 @@ public class ApiController {
     private final CiafoRepository ciafoRepository;
 
     @GetMapping("/api/come-in-and-find-out/{category}")
-    List<CiafoImages> index(@PathVariable String category, @RequestParam int offset) {
+    List<CiafoImages> ciafo(@PathVariable String category, @RequestParam int offset) {
         return ciafoRepository.getImagesByCategory(category, offset);
     }
 }
