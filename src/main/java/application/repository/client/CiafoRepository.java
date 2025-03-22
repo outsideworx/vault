@@ -7,7 +7,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     FROM CIAFO
                     WHERE category = :category
             """, nativeQuery = true)
-    List<CiafoThumbnails> getThumbnailsByCategory(@Param("category") String category);
+    List<CiafoThumbnails> getThumbnailsByCategory(String category);
 
     @Cacheable(value = "items", key = "#category + #offset")
     @Query(value = """
@@ -30,7 +29,7 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     ORDER BY id
                     LIMIT 6 OFFSET :offset
             """, nativeQuery = true)
-    List<CiafoImages> getImagesByCategory(@Param("category") String category, @Param("offset") int offset);
+    List<CiafoImages> getImagesByCategory(String category, int offset);
 
     void deleteByCategoryAndId(String category, Long id);
 
@@ -50,5 +49,5 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     thumbnail4 = COALESCE(:#{#item.thumbnail4}, thumbnail4)
                     WHERE id = :#{#item.id}
             """, nativeQuery = true)
-    void update(@Param("item") CiafoItem item);
+    void update(CiafoItem item);
 }
