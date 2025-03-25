@@ -3,7 +3,7 @@ package application.controller.client;
 import application.controller.ModelVisitor;
 import application.converter.client.CiafoConverter;
 import application.entity.client.CiafoItem;
-import application.entity.client.CiafoThumbnails;
+import application.entity.client.mapping.CiafoThumbnails;
 import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -32,7 +32,7 @@ class CiafoController implements ModelVisitor {
         List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);
-        ciafoConverter.filterIdsToDelete(items).forEach(id -> ciafoRepository.deleteByCategoryAndId(category, id));
+        ciafoRepository.deleteAllById(ciafoConverter.filterIdsToDelete(items));
         return "redirect:/";
     }
 

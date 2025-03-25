@@ -1,8 +1,9 @@
 package application.repository.client;
 
-import application.entity.client.CiafoImages;
+import application.entity.client.mapping.CiafoFirstImage;
+import application.entity.client.mapping.CiafoImages;
 import application.entity.client.CiafoItem;
-import application.entity.client.CiafoThumbnails;
+import application.entity.client.mapping.CiafoThumbnails;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,17 +22,23 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
             """, nativeQuery = true)
     List<CiafoThumbnails> getThumbnailsByCategory(String category);
 
-    @Cacheable(value = "items", key = "#category + #offset")
+    @Cacheable(value = "items", key = "#id")
     @Query(value = """
             SELECT id, category, description, image1, image2, image3, image4
+                    FROM CIAFO
+                    WHERE id = :id
+            """, nativeQuery = true)
+    CiafoImages getImagesById(Long id);
+
+    @Cacheable(value = "items", key = "#category + #offset")
+    @Query(value = """
+            SELECT id, category, description, image1
                     FROM CIAFO
                     WHERE category = :category
                     ORDER BY id
                     LIMIT 6 OFFSET :offset
             """, nativeQuery = true)
-    List<CiafoImages> getImagesByCategory(String category, int offset);
-
-    void deleteByCategoryAndId(String category, Long id);
+    List<CiafoFirstImage> get1stImagesByCategoryAndOffset(String category, int offset);
 
     @Modifying
     @Query(value = """

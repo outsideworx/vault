@@ -1,4 +1,4 @@
-package application.entity.client;
+package application.entity.client.mapping;
 
 public interface CiafoThumbnails extends CiafoMeta {
     String getThumbnail1();
