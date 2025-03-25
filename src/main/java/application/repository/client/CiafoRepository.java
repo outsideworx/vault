@@ -38,7 +38,7 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     ORDER BY id
                     LIMIT 6 OFFSET :offset
             """, nativeQuery = true)
-    List<CiafoFirstImage> get1stImagesByCategoryAndOffset(String category, int offset);
+    List<CiafoFirstImage> getFirstImagesByCategoryAndOffset(String category, int offset);
 
     @Modifying
     @Query(value = """

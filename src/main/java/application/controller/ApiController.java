@@ -23,7 +23,7 @@ public class ApiController {
     @GetMapping("/api/come-in-and-find-out/categories/{category}")
     List<CiafoFirstImage> category(@PathVariable String category, @RequestParam int offset) {
         log.info("Incoming API request for category: {} with offset: {}", category, offset);
-        return ciafoRepository.get1stImagesByCategoryAndOffset(category, offset);
+        return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
     @GetMapping("/api/come-in-and-find-out/{id}")
