@@ -4,7 +4,7 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: maximumSize=128
+      spec: maximumSize=256
   jackson:
     default-property-inclusion: NON_EMPTY
   jpa:

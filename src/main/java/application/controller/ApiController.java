@@ -26,7 +26,7 @@ public class ApiController {
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
-    @GetMapping("/api/come-in-and-find-out/{id}")
+    @GetMapping("/api/cached/come-in-and-find-out/{id}")
     CiafoImages details(@PathVariable Long id) {
         log.info("Incoming API request for ID: {}", id);
         return ciafoRepository.getImagesById(id);

@@ -13,8 +13,8 @@ import java.io.IOException;
 public class CacheFilter extends HttpFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        if (request.getRequestURI().startsWith("/api")) {
-            response.setHeader("Cache-Control", "public, max-age=86400");
+        if (request.getRequestURI().startsWith("/api/cached")) {
+            response.setHeader("Cache-Control", "public, max-age=2592000");
         }
         chain.doFilter(request, response);
     }
