@@ -14,7 +14,7 @@ public class CacheFilter extends HttpFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         if (request.getRequestURI().startsWith("/api/cached")) {
-            response.setHeader("Cache-Control", "public, max-age=2678400");
+            response.setHeader("Cache-Control", "public, max-age=86400");
         }
         chain.doFilter(request, response);
     }
