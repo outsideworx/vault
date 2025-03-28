@@ -1,4 +1,4 @@
-package application.controller;
+package application.controller.client;
 
 import application.entity.client.mapping.CiafoFirstImage;
 import application.entity.client.mapping.CiafoImages;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://come-in-and-find-out.ch")
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class ApiController {
+public class CiafoApiController {
     private final CiafoRepository ciafoRepository;
 
     @GetMapping("/api/come-in-and-find-out/categories/{category}")
-    List<CiafoFirstImage> category(@PathVariable String category, @RequestParam int offset) {
+    List<CiafoFirstImage> getCiafoFirstImages(@PathVariable String category, @RequestParam int offset) {
         log.info("Incoming API request for category: {} with offset: {}", category, offset);
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
     @GetMapping("/api/cached/come-in-and-find-out/{id}")
-    CiafoImages details(@PathVariable Long id) {
+    CiafoImages getCiafoImages(@PathVariable Long id) {
         log.info("Incoming API request for ID: {}", id);
         return ciafoRepository.getImagesById(id);
     }
