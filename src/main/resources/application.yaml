@@ -4,12 +4,12 @@ cors:
 server:
   port: 443
 spring:
-  datasource:
-    url: jdbc:postgresql://postgres:5432/
   cache:
     type: caffeine
     caffeine:
       spec: maximumSize=256
+  datasource:
+    url: jdbc:postgresql://postgres:5432/
   jackson:
     default-property-inclusion: NON_EMPTY
   jpa:
