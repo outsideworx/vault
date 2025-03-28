@@ -3,5 +3,3 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/
-    username: admin
-    password: admin

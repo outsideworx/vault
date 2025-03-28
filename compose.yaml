@@ -6,8 +6,6 @@ services:
     image: postgres:16.2
     volumes:
       - /root/data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     restart: unless-stopped
   database:
     build: .
