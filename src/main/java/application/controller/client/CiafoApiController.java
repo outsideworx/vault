@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "https://come-in-and-find-out.ch")
+@CrossOrigin(origins = "${cors.origins.come-in-and-find-out}")
 @RestController
 @RequiredArgsConstructor
 @Slf4j

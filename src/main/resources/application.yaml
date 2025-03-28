@@ -1,3 +1,6 @@
+cors:
+  origins:
+    come-in-and-find-out: "https://come-in-and-find-out.ch"
 server:
   port: 443
 spring:
