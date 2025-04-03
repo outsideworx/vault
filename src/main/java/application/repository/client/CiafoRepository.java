@@ -43,9 +43,9 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
     @Modifying
     @Query(value = """
             UPDATE CIAFO SET
-                    id = COALESCE(:#{#item.id}, id),
-                    category = COALESCE(:#{#item.category}, category),
-                    description = COALESCE(:#{#item.description}, description),
+                    id = :#{#item.id},
+                    category = :#{#item.category},
+                    description = :#{#item.description},
                     image1 = COALESCE(:#{#item.image1}, image1),
                     image2 = COALESCE(:#{#item.image2}, image2),
                     image3 = COALESCE(:#{#item.image3}, image3),

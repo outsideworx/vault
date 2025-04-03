@@ -21,8 +21,7 @@ class WebSecurity {
                 .formLogin(request -> request
                         .loginPage("/login"))
                 .sessionManagement(request -> request
-                        .invalidSessionUrl("/login?expired")
-                )
+                        .invalidSessionUrl("/login?expired"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
