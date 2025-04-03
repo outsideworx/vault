@@ -1,6 +1,6 @@
 cors:
   origins:
-    come-in-and-find-out: "*"
+    ciafo: "*"
 server:
   port: 8080
   ssl:
