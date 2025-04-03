@@ -1,3 +1,6 @@
+cors:
+  origins:
+    come-in-and-find-out: "*"
 server:
   port: 8080
   ssl:
