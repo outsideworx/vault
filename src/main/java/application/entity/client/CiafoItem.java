@@ -7,10 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
 @Data
-@DynamicUpdate
 @Entity
 @Table(name = "CIAFO")
 public class CiafoItem {
