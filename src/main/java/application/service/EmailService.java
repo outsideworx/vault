@@ -16,7 +16,7 @@ public class EmailService {
     public void send(String subject, String text) {
         Email email = new Email();
         email.setFrom("Outside Worx", "info@outsideworx.net");
-        email.addRecipient("Outside Worx", "info@outsideworx.net");
+        email.addRecipient(null, "info@outsideworx.net");
         email.setSubject(subject);
         email.setHtml(text);
         MailerSend mailerSend = new MailerSend();

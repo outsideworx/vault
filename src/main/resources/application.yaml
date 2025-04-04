@@ -1,6 +1,9 @@
 cors:
   origins:
     ciafo: "https://come-in-and-find-out.ch"
+mail:
+  subject:
+    ciafo: "come-in-and-find-out.ch"
 server:
   port: 443
 spring:
