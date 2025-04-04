@@ -9,4 +9,7 @@ if [ "$1" == "--download" ]; then
     SERVER_IP="$2"
     rm -rf /tmp/data;
     scp -r root@"$SERVER_IP":/root/data /tmp;
+else
+    echo "Error: Only download mode is supported!"
+    exit 1
 fi

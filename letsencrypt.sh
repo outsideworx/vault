@@ -16,10 +16,10 @@ if [ "$1" == "--remote" ]; then
     exit 0
 fi
 
-if [ -f "/root/.env" ]; then
-    source /root/.env
+if [ -f "$SCRIPT_DIR/.env" ]; then
+    source "$SCRIPT_DIR/.env"
 else
-    echo "Error: .env file not found on the server!"
+    echo "Error: .env file not found!"
     exit 1
 fi
 if [ -z "$SERVER_SSL_KEY_STORE" ]; then

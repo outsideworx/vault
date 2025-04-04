@@ -4,6 +4,7 @@ import application.entity.Callback;
 import application.entity.client.mapping.CiafoFirstImage;
 import application.entity.client.mapping.CiafoImages;
 import application.repository.client.CiafoRepository;
+import application.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "${cors.origins.ciafo}")
 @RestController
@@ -23,6 +23,8 @@ import java.util.Map;
 @Slf4j
 public class CiafoApiController {
     private final CiafoRepository ciafoRepository;
+
+    private final EmailService emailService;
 
     @GetMapping("/api/come-in-and-find-out/categories/{category}")
     List<CiafoFirstImage> getCiafoFirstImages(@PathVariable String category, @RequestParam int offset) {
@@ -39,5 +41,11 @@ public class CiafoApiController {
     @PostMapping("/api/callback/come-in-and-find-out")
     void callback(@RequestBody Callback callback) {
         log.info("Callback received: {}", callback);
+        emailService.send(
+                "come-in-and-find-out.ch: Someone is interested!",
+                String.format(
+                        "A visitor left the following contact: %s.<br>The product he was interested in is: <a href=%s>this</a>.",
+                        callback.getAddress(),
+                        callback.getProduct()));
     }
 }
