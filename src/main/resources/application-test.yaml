@@ -1,9 +1,6 @@
 cors:
   origins:
     ciafo: "*"
-mail:
-  subject:
-    ciafo: ""
 server:
   port: 8080
   ssl:
