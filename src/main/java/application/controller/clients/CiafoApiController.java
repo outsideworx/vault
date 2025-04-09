@@ -60,10 +60,10 @@ public class CiafoApiController {
     }
 
     private void authTokenCheck(String authToken) {
-        if (StringUtils.isEmpty(authToken)) {
-            throw new BadCredentialsException("Missing auth token.");
-        } else if (!ciafoAuthToken.equals(authToken)) {
-            throw new BadCredentialsException("Invalid auth token.");
+        if (StringUtils.isEmpty(authToken) || !ciafoAuthToken.equals(authToken)) {
+            String errorMessage = "Missing or invalid auth token.";
+            log.error(errorMessage);
+            throw new BadCredentialsException(errorMessage);
         }
     }
 }
