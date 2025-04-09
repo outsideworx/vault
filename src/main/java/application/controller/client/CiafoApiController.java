@@ -26,20 +26,20 @@ public class CiafoApiController {
 
     private final EmailService emailService;
 
-    @GetMapping("/api/come-in-and-find-out/categories/{category}")
-    List<CiafoFirstImage> getCiafoFirstImages(@PathVariable String category, @RequestParam int offset) {
+    @GetMapping("/api/come-in-and-find-out")
+    List<CiafoFirstImage> getCiafoFirstImages(@RequestParam String category, @RequestParam int offset) {
         log.info("Incoming API request for category: {} with offset: {}", category, offset);
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
-    @GetMapping("/api/cached/come-in-and-find-out/{id}")
-    CiafoImages getCiafoImages(@PathVariable Long id) {
+    @GetMapping("/api/cached/come-in-and-find-out")
+    CiafoImages getCiafoImages(@RequestParam Long id) {
         log.info("Incoming API request for ID: {}", id);
         return ciafoRepository.getImagesById(id);
     }
 
-    @PostMapping("/api/callback/{username}")
-    void callback(@PathVariable String username, @RequestBody Callback callback) {
+    @PostMapping("/api/callback")
+    void callback(@RequestParam String username, @RequestBody Callback callback) {
         log.info("Callback received for [{}] with payload: {}", username, callback);
         emailService.send(
                 username,

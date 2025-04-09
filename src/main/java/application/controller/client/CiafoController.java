@@ -8,7 +8,6 @@ import application.repository.client.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +26,8 @@ class CiafoController implements ModelVisitor {
     private final CiafoRepository ciafoRepository;
 
     @CacheEvict(value = "items", allEntries = true)
-    @PostMapping("/come-in-and-find-out/categories/{category}")
-    public String submit(@PathVariable String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
+    @PostMapping("/come-in-and-find-out")
+    public String submit(@RequestParam String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
         List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);

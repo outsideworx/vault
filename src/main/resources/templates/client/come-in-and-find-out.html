@@ -59,7 +59,7 @@
             </h2>
             <div th:id="'collapse' + ${category}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${category}" data-bs-parent="#crudTables">
                 <div class="accordion-body">
-                    <form th:action="@{'/come-in-and-find-out/categories/' + ${category}}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{'/come-in-and-find-out?category=' + ${category}}" method="post" enctype="multipart/form-data">
                         <button class="btn btn-success mb-3 me-2" type="submit">
                             <i class="bi bi-floppy me-1"></i>
                             Save changes
