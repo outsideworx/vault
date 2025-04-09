@@ -1,4 +1,4 @@
-package application.entity.client.mapping;
+package application.entity.clients.mapping;
 
 public interface CiafoMeta {
     Long getId();

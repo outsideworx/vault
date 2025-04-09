@@ -1,23 +1,26 @@
-package application.controller.client;
+package application.controller.clients;
 
 import application.entity.Callback;
-import application.entity.client.mapping.CiafoFirstImage;
-import application.entity.client.mapping.CiafoImages;
-import application.repository.client.CiafoRepository;
+import application.entity.clients.mapping.CiafoFirstImage;
+import application.entity.clients.mapping.CiafoImages;
+import application.repository.clients.CiafoRepository;
 import application.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
-@CrossOrigin(origins = "${cors.origins.ciafo}")
+@CrossOrigin(origins = "${app.clients.ciafo.origin}")
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -26,21 +29,27 @@ public class CiafoApiController {
 
     private final EmailService emailService;
 
+    @Value("${app.clients.ciafo.token}")
+    private String ciafoAuthToken;
+
     @GetMapping("/api/come-in-and-find-out")
-    List<CiafoFirstImage> getCiafoFirstImages(@RequestParam String category, @RequestParam int offset) {
+    List<CiafoFirstImage> getCiafoFirstImages(@RequestParam String category, @RequestParam int offset, @RequestHeader(value = "X-Auth-Token") String authToken) {
         log.info("Incoming API request for category: {} with offset: {}", category, offset);
+        authTokenCheck(authToken);
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
     @GetMapping("/api/cached/come-in-and-find-out")
-    CiafoImages getCiafoImages(@RequestParam Long id) {
+    CiafoImages getCiafoImages(@RequestParam Long id, @RequestHeader(value = "X-Auth-Token") String authToken) {
         log.info("Incoming API request for ID: {}", id);
+        authTokenCheck(authToken);
         return ciafoRepository.getImagesById(id);
     }
 
     @PostMapping("/api/callback")
-    void callback(@RequestParam String username, @RequestBody Callback callback) {
+    void callback(@RequestParam String username, @RequestBody Callback callback, @RequestHeader(value = "X-Auth-Token") String authToken) {
         log.info("Callback received for [{}] with payload: {}", username, callback);
+        authTokenCheck(authToken);
         emailService.send(
                 username,
                 "Someone is interested!",
@@ -48,5 +57,13 @@ public class CiafoApiController {
                         "A visitor left the following contact: %s.<br>The product he was interested in is: <a href=%s>this</a>.",
                         callback.getAddress(),
                         callback.getProduct()));
+    }
+
+    private void authTokenCheck(String authToken) {
+        if (StringUtils.isEmpty(authToken)) {
+            throw new BadCredentialsException("Missing auth token.");
+        } else if (!ciafoAuthToken.equals(authToken)) {
+            throw new BadCredentialsException("Invalid auth token.");
+        }
     }
 }

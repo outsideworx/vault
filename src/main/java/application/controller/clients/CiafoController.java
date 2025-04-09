@@ -1,10 +1,10 @@
-package application.controller.client;
+package application.controller.clients;
 
 import application.controller.ModelVisitor;
-import application.converter.client.CiafoConverter;
-import application.entity.client.CiafoItem;
-import application.entity.client.mapping.CiafoThumbnails;
-import application.repository.client.CiafoRepository;
+import application.converter.clients.CiafoConverter;
+import application.entity.clients.CiafoItem;
+import application.entity.clients.mapping.CiafoThumbnails;
+import application.repository.clients.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ class CiafoController implements ModelVisitor {
 
     @Override
     public ModelAndView getModel() {
-        ModelAndView model = new ModelAndView("client/come-in-and-find-out");
+        ModelAndView model = new ModelAndView("clients/come-in-and-find-out");
         List<String> categories = List.of(
                 "Furniture",
                 "Clothing",

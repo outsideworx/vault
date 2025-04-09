@@ -26,7 +26,7 @@ class IndexController {
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
-            return getModel("client/".concat(matcher.group(0)))
+            return getModel("clients/".concat(matcher.group(0)))
                     .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
         }
         throw new UsernameNotFoundException("Invalid email address.");

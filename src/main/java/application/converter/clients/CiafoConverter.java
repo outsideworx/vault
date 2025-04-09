@@ -1,7 +1,7 @@
-package application.converter.client;
+package application.converter.clients;
 
 import application.converter.ItemsConverter;
-import application.entity.client.CiafoItem;
+import application.entity.clients.CiafoItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;

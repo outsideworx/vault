@@ -1,6 +1,7 @@
-cors:
-  origins:
-    ciafo: "*"
+app:
+  clients:
+    ciafo:
+      origin: "*"
 server:
   port: 8080
   ssl:
