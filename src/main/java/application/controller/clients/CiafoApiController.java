@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class CiafoApiController {
+class CiafoApiController {
     private final CiafoRepository ciafoRepository;
 
     private final EmailService emailService;
