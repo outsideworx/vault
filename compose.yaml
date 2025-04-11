@@ -7,7 +7,7 @@ services:
     volumes:
       - /root/data:/var/lib/postgresql/data
     restart: unless-stopped
-  database:
+  vault:
     build: .
     depends_on:
       - postgres
