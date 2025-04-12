@@ -22,7 +22,7 @@ public class EmailService {
         MailerSend mailerSend = new MailerSend();
         mailerSend.setToken(token);
         try {
-            log.info("Mail sent wih status code: {}", mailerSend.emails().send(email).responseStatusCode);
+            log.info("Mail sent wih status code: [{}]", mailerSend.emails().send(email).responseStatusCode);
         } catch (MailerSendException e) {
             throw new IllegalStateException("Email sending failed.", e);
         }

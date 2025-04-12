@@ -7,19 +7,30 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-class CacheFilter extends HttpFilter {
+@Slf4j
+class AuthTokenFilter extends HttpFilter {
+    @Value("${app.clients.ciafo.token}")
+    private String ciafoAuthToken;
+
     private final FilterConditions filterConditions;
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (filterConditions.notPreflightRequest(request) && request.getRequestURI().startsWith("/api/cached")) {
-            response.setHeader("Cache-Control", "public, max-age=86400");
+        if (filterConditions.notPreflightRequest(request) && request.getRequestURI().startsWith("/api")) {
+            if (filterConditions.invalidAuthToken(request, ciafoAuthToken)) {
+                String errorMessage = "Missing or invalid auth token.";
+                log.error(errorMessage);
+                throw new BadCredentialsException(errorMessage);
+            }
         }
         chain.doFilter(request, response);
     }
