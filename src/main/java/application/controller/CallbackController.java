@@ -19,7 +19,7 @@ class CallbackController {
 
     @PostMapping("/api/callback")
     void callback(@RequestParam String username, @RequestBody Callback callback) {
-        log.info("Callback received for [{}], with payload: [{}]", username, callback);
+        log.info("Callback received for: [{}], with payload: [{}]", username, callback);
         emailService.send(
                 username,
                 "Someone is interested!",

@@ -27,9 +27,8 @@ class AuthTokenFilter extends HttpFilter {
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (filterConditions.notPreflightRequest(request) && request.getRequestURI().startsWith("/api")) {
             if (filterConditions.invalidAuthToken(request, ciafoAuthToken)) {
-                String errorMessage = "Missing or invalid auth token.";
-                log.error(errorMessage);
-                throw new BadCredentialsException(errorMessage);
+                log.error("Invalid auth token for request: [{}]", request.getRequestURL());
+                throw new BadCredentialsException("Invalid auth token.");
             }
         }
         chain.doFilter(request, response);
