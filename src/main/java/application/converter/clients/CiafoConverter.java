@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public class CiafoConverter extends ItemsConverter {
+public final class CiafoConverter extends ItemsConverter {
 
     public List<CiafoItem> filterItemsToInsert(List<CiafoItem> items) {
         return items

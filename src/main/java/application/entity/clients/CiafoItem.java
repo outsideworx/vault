@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "CIAFO")
-public class CiafoItem {
+public final class CiafoItem {
     @Id
     @GeneratedValue
     private Long id;

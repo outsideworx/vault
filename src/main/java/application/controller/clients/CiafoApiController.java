@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-class CiafoApiController {
+final class CiafoApiController {
     private final CiafoRepository ciafoRepository;
 
     @GetMapping("/api/come-in-and-find-out")

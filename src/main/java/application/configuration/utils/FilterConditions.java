@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class FilterConditions {
+public final class FilterConditions {
     private final Properties properties;
 
     public boolean notPreflightRequest(HttpServletRequest request) {

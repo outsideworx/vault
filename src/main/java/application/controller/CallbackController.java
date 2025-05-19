@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-class CallbackController {
+final class CallbackController {
     private final EmailService emailService;
 
     @PostMapping("/api/callback")

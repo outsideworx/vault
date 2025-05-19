@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-class CacheFilter extends HttpFilter {
+final class CacheFilter extends HttpFilter {
     private final FilterConditions filterConditions;
 
     @Override

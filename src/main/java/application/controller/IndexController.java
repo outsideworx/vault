@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequiredArgsConstructor
-class IndexController {
+final class IndexController {
     private final Pattern domainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
     private final List<ModelVisitor> models;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class EmailService {
+public final class EmailService {
     @Value("${mailersend.sdk.token}")
     private String token;
 

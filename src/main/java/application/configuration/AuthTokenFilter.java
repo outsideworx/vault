@@ -16,7 +16,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-class AuthTokenFilter extends HttpFilter {
+final class AuthTokenFilter extends HttpFilter {
     private final FilterConditions filterConditions;
 
     @Override
