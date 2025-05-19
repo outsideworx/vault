@@ -1,6 +1,7 @@
 app:
   clients:
     ciafo:
+      caller: "come-in-and-find-out"
       origin: "https://come-in-and-find-out.ch"
 server:
   port: 443
