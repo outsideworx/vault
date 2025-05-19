@@ -22,7 +22,7 @@ class AuthTokenFilter extends HttpFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (filterConditions.notPreflightRequest(request) && request.getRequestURI().startsWith("/api")) {
-            if (filterConditions.invalidAuthToken(request)) {
+            if (filterConditions.invalidCallerIdOrAuthToken(request)) {
                 log.error("Invalid caller id or auth token for request: [{}]", request.getRequestURL());
                 throw new BadCredentialsException("Invalid caller id or auth token.");
             }

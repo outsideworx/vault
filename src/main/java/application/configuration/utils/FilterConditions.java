@@ -13,7 +13,7 @@ public class FilterConditions {
         return !"OPTIONS".equalsIgnoreCase(request.getMethod());
     }
 
-    public boolean invalidAuthToken(HttpServletRequest request) {
+    public boolean invalidCallerIdOrAuthToken(HttpServletRequest request) {
         return properties.getClients().values()
                 .stream()
                 .noneMatch(client -> client.getCaller().equals(request.getHeader("X-Caller-Id"))
