@@ -8,6 +8,7 @@ if [ "$1" == "--remote" ]; then
         exit 1
     fi
 
+    # WARNING: For this section to work, project .env file has to be present.
     SERVER_IP="$2"
     echo "Uploading script to $SERVER_IP"
     scp "$(realpath "$0")" root@"$SERVER_IP":/root/vault

@@ -5,7 +5,7 @@ services:
       POSTGRES_PASSWORD: $SPRING_DATASOURCE_PASSWORD
     image: postgres:16.2
     volumes:
-      - /root/data:/var/lib/postgresql/data
+      - /root/outsideworx/data:/var/lib/postgresql/data
     restart: unless-stopped
   vault:
     build: .
@@ -15,7 +15,7 @@ services:
       - .env
     volumes:
       - ${SERVER_SSL_KEY_STORE}:${SERVER_SSL_KEY_STORE}:ro
-      - /root/logs:/var/log/outsideworx
+      - /root/outsideworx/logs:/var/log/outsideworx
     ports:
       - "443:443"
     restart: on-failure
