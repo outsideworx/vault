@@ -8,7 +8,7 @@ if [ "$1" == "--remote" ]; then
         exit 1
     fi
 
-    # WARNING: For this section to work, project .env file has to be present.
+    # WARNING: For this section to work, project .env file has to be present at below mentioned location.
     SERVER_IP="$2"
     echo "Uploading script to $SERVER_IP"
     scp "$(realpath "$0")" root@"$SERVER_IP":/root/vault
@@ -32,6 +32,7 @@ if [ -z "$SERVER_SSL_KEY_STORE_PASSWORD" ]; then
     exit 1
 fi
 
+# WARNING: For this section to work, port 80 has to be open and accessible via the below mentioned address.
 apt update
 apt install -y openssl certbot
 certbot certonly --standalone --noninteractive --agree-tos --email info@outsideworx.net -d services.outsideworx.net

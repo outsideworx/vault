@@ -15,7 +15,7 @@ services:
       - .env
     volumes:
       - ${SERVER_SSL_KEY_STORE}:${SERVER_SSL_KEY_STORE}:ro
-      - /root/outsideworx/logs:/var/log/outsideworx
+      - /root/outsideworx/logs:/tmp/outsideworx/logs
     ports:
       - "443:443"
     restart: on-failure

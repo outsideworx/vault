@@ -1,8 +1,8 @@
 <configuration>
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/outsideworx/vault.log</file>
+        <file>/tmp/outsideworx/logs/vault.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/outsideworx/vault-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/tmp/outsideworx/logs/vault-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
