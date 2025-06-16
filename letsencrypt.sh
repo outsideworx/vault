@@ -9,10 +9,10 @@ if [ "$1" == "--remote" ]; then
     fi
 
     SERVER_IP="$2"
-    echo "Uploading script and .env file to $SERVER_IP"
-    scp "$(realpath "$0")" "$SCRIPT_DIR/.env" root@"$SERVER_IP":/root/
+    echo "Uploading script to $SERVER_IP"
+    scp "$(realpath "$0")" root@"$SERVER_IP":/root/vault
     echo "Upload completed successfully."
-    ssh root@"$SERVER_IP" "bash /root/$(basename "$0")"
+    ssh root@"$SERVER_IP" "bash /root/vault/$(basename "$0")"
     exit 0
 fi
 
