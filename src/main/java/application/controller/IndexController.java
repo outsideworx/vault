@@ -28,7 +28,7 @@ final class IndexController {
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
-            log.info("Successful portal login for: [{}]", email);
+            log.info("Portal rendering starts for: [{}]", email);
             return getModel("clients/".concat(matcher.group(0)))
                     .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
         }
