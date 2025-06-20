@@ -6,6 +6,7 @@ import application.entity.clients.CiafoItem;
 import application.entity.clients.mapping.CiafoThumbnails;
 import application.repository.clients.CiafoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 class CiafoController implements ModelVisitor {
     private final CiafoConverter ciafoConverter;
 
@@ -28,6 +30,7 @@ class CiafoController implements ModelVisitor {
     @CacheEvict(value = "items", allEntries = true)
     @PostMapping("/come-in-and-find-out")
     public String submit(@RequestParam String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
+        log.info("Processing starts for: come-in-and-find-out");
         List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);

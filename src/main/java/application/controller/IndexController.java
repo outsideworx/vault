@@ -1,6 +1,7 @@
 package application.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 final class IndexController {
     private final Pattern domainPattern = Pattern.compile("(?<=@)[^.]+(?=\\.)");
 
@@ -26,6 +28,7 @@ final class IndexController {
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
+            log.info("Successful portal login for: [{}]", email);
             return getModel("clients/".concat(matcher.group(0)))
                     .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
         }
