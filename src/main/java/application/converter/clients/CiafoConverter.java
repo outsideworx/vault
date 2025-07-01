@@ -1,6 +1,6 @@
 package application.converter.clients;
 
-import application.converter.ItemsConverter;
+import application.converter.ImageConverter;
 import application.entity.clients.CiafoItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public final class CiafoConverter extends ItemsConverter {
+public final class CiafoConverter extends ImageConverter {
 
     public List<CiafoItem> filterItemsToInsert(List<CiafoItem> items) {
         return items
