@@ -16,7 +16,8 @@ services:
       - .env
     build: .
     volumes:
-      - ${SERVER_SSL_KEY_STORE}:${SERVER_SSL_KEY_STORE}:ro
+      - ${SERVER_SSL_CERTIFICATE}:${SERVER_SSL_CERTIFICATE}:ro
+      - ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:ro
       - /root/outsideworx/logs:/tmp/outsideworx/logs
     ports:
       - "443:443"
