@@ -10,10 +10,10 @@ SERVER_IP="$2"
 if [ "$1" == "--download" ]; then
     rm -rf /tmp/outsideworx;
     echo "Downloading starts from $SERVER_IP"
-    rsync -avh root@"$SERVER_IP":/root/outsideworx /tmp;
+    rsync -avh devs@"$SERVER_IP":/home/outsideworx /tmp;
 elif [ "$1" == "--upload" ]; then
     echo "Purging project from $SERVER_IP"
-    ssh root@"$2" "rm -rf /root/outsideworx/vault"
+    ssh root@"$2" "rm -rf /home/outsideworx/vault"
     echo "Uploading project to $SERVER_IP"
     scp -r \
     "$SCRIPT_DIR/src" \
@@ -21,7 +21,7 @@ elif [ "$1" == "--upload" ]; then
     "$SCRIPT_DIR/.env" \
     "$SCRIPT_DIR/Dockerfile" \
     "$SCRIPT_DIR/compose.yaml" \
-    root@"$SERVER_IP":/root/outsideworx/vault
+    root@"$SERVER_IP":/home/outsideworx/vault
 else
     echo "Error: Only download & upload modes are supported!"
     exit 1

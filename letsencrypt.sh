@@ -8,9 +8,9 @@ if [ "$1" == "--remote" ]; then
 
     SERVER_IP="$2"
     echo "Uploading script to $SERVER_IP"
-    scp "$(realpath "$0")" root@"$SERVER_IP":/root/outsideworx/vault
+    scp "$(realpath "$0")" root@"$SERVER_IP":/home/outsideworx/vault
     echo "Upload completed successfully."
-    ssh root@"$SERVER_IP" "bash /root/outsideworx/vault/$(basename "$0")"
+    ssh root@"$SERVER_IP" "bash /home/outsideworx/vault/$(basename "$0")"
     exit 0
 fi
 
