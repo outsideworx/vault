@@ -10,7 +10,7 @@ SERVER_IP="$2"
 if [ "$1" == "--download" ]; then
     rm -rf /tmp/outsideworx;
     echo "Downloading starts from $SERVER_IP"
-    scp -r root@"$SERVER_IP":/root/outsideworx /tmp;
+    rsync -avh root@"$SERVER_IP":/root/outsideworx /tmp;
 elif [ "$1" == "--upload" ]; then
     echo "Purging project from $SERVER_IP"
     ssh root@"$2" "rm -rf /root/outsideworx/vault"
