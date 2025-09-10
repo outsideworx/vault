@@ -2,6 +2,7 @@ app:
   clients:
     ciafo:
       origin: "*"
+      token: "test"
 server:
   port: 8080
   ssl:
@@ -9,3 +10,5 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/
+    username: postgres
+    password:
