@@ -9,7 +9,7 @@ SERVER_IP="$2"
 
 if [ "$1" == "--download" ]; then
     echo "Downloading starts from $SERVER_IP"
-    rsync -rvh --delete devs@"$SERVER_IP":/home/outsideworx /tmp;
+    rsync -rvh --delete root@"$SERVER_IP":/home/outsideworx /tmp;
 elif [ "$1" == "--upload" ]; then
     echo "Uploading project to $SERVER_IP"
     rsync -rvh --delete \
