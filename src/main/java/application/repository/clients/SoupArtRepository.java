@@ -1,9 +1,9 @@
 package application.repository.clients;
 
-import application.entity.clients.mapping.CiafoFirstImage;
-import application.entity.clients.mapping.CiafoImages;
-import application.entity.clients.CiafoItem;
-import application.entity.clients.mapping.CiafoThumbnails;
+import application.entity.clients.SoupArtItem;
+import application.entity.clients.mapping.SoupArtFirstImage;
+import application.entity.clients.mapping.SoupArtImages;
+import application.entity.clients.mapping.SoupArtThumbnails;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,36 +13,36 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
-    @Cacheable(value = "ciafoItems", key = "#category")
+public interface SoupArtRepository extends CrudRepository<SoupArtItem, Long> {
+    @Cacheable(value = "soupArtItems", key = "#category")
     @Query(value = """
             SELECT id, category, description, thumbnail1, thumbnail2, thumbnail3, thumbnail4
-                    FROM CIAFO
+                    FROM SOUPART
                     WHERE category = :category
             """, nativeQuery = true)
-    List<CiafoThumbnails> getThumbnailsByCategory(String category);
+    List<SoupArtThumbnails> getThumbnailsByCategory(String category);
 
-    @Cacheable(value = "ciafoItems", key = "#id")
+    @Cacheable(value = "soupArtItems", key = "#id")
     @Query(value = """
             SELECT id, category, description, image1, image2, image3, image4
-                    FROM CIAFO
+                    FROM SOUPART
                     WHERE id = :id
             """, nativeQuery = true)
-    CiafoImages getImagesById(Long id);
+    SoupArtImages getImagesById(Long id);
 
-    @Cacheable(value = "ciafoItems", key = "#category + #offset")
+    @Cacheable(value = "soupArtItems", key = "#category + #offset")
     @Query(value = """
             SELECT id, category, description, image1
-                    FROM CIAFO
+                    FROM SOUPART
                     WHERE category = :category
                     ORDER BY id
                     LIMIT 6 OFFSET :offset
             """, nativeQuery = true)
-    List<CiafoFirstImage> getFirstImagesByCategoryAndOffset(String category, int offset);
+    List<SoupArtFirstImage> getFirstImagesByCategoryAndOffset(String category, int offset);
 
     @Modifying
     @Query(value = """
-            UPDATE CIAFO SET
+            UPDATE SOUPART SET
                     category = :#{#item.category},
                     description = :#{#item.description},
                     image1 = COALESCE(:#{#item.image1}, image1),
@@ -55,5 +55,5 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     thumbnail4 = COALESCE(:#{#item.thumbnail4}, thumbnail4)
                     WHERE id = :#{#item.id}
             """, nativeQuery = true)
-    void update(CiafoItem item);
+    void update(SoupArtItem item);
 }

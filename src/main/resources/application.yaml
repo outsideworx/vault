@@ -3,6 +3,9 @@ app:
     ciafo:
       caller: "come-in-and-find-out"
       origin: "https://come-in-and-find-out.ch"
+    soupart:
+      caller: "soupart"
+      origin: "https://soupart.net"
 server:
   port: 443
 spring:
