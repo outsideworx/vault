@@ -8,10 +8,10 @@ fi
 SERVER_IP="$2"
 
 if [ "$1" == "--download" ]; then
-    echo "Downloading starts from $SERVER_IP"
+    echo "Downloading files: $SERVER_IP"
     rsync -rvh --delete root@"$SERVER_IP":/home/outsideworx /tmp;
 elif [ "$1" == "--upload" ]; then
-    echo "Uploading project to $SERVER_IP"
+    echo "Uploading project: $SERVER_IP"
     rsync -rvh --delete \
         "$SCRIPT_DIR/src" \
         "$SCRIPT_DIR/pom.xml" \

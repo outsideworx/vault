@@ -2,9 +2,9 @@ package application.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,11 +28,14 @@ final class IndexController {
         String email = authentication.getName();
         Matcher matcher = domainPattern.matcher(email);
         if (matcher.find()) {
-            log.info("Portal rendering starts for: [{}]", email);
+            log.info("Portal rendering starts: [{}]", email);
             return getModel("clients/".concat(matcher.group(0)))
-                    .orElseThrow(() -> new UsernameNotFoundException("Client view is not implemented."));
+                    .orElseThrow(() -> {
+                        log.error("Client view is not implemented: [{}]", email);
+                        return new AccessDeniedException("Client view is not implemented.");
+                    });
         }
-        throw new UsernameNotFoundException("Invalid email address.");
+        throw new AccessDeniedException("Invalid email address.");
     }
 
     private Optional<ModelAndView> getModel(String viewName) {

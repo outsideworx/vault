@@ -20,6 +20,8 @@ class WebSecurity {
                         .authenticated())
                 .formLogin(request -> request
                         .loginPage("/login"))
+                .exceptionHandling(request -> request
+                        .accessDeniedPage("/login?error"))
                 .sessionManagement(request -> request
                         .invalidSessionUrl("/login?expired"))
                 .csrf(AbstractHttpConfigurer::disable)
