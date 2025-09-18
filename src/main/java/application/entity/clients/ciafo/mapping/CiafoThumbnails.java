@@ -1,6 +1,6 @@
-package application.entity.clients.mapping;
+package application.entity.clients.ciafo.mapping;
 
-public interface SoupArtThumbnails extends SoupArtMeta {
+public interface CiafoThumbnails extends CiafoMeta {
     String getThumbnail1();
     String getThumbnail2();
     String getThumbnail3();

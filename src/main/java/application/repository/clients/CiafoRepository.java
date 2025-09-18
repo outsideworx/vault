@@ -1,9 +1,9 @@
 package application.repository.clients;
 
-import application.entity.clients.mapping.CiafoFirstImage;
-import application.entity.clients.mapping.CiafoImages;
-import application.entity.clients.CiafoItem;
-import application.entity.clients.mapping.CiafoThumbnails;
+import application.entity.clients.ciafo.mapping.CiafoFirstImage;
+import application.entity.clients.ciafo.mapping.CiafoImages;
+import application.entity.clients.ciafo.CiafoItem;
+import application.entity.clients.ciafo.mapping.CiafoThumbnails;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

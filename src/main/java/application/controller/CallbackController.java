@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin({"${app.clients.ciafo.origin}", "${app.clients.soupart.origin}"})
+@CrossOrigin({"${app.clients.ciafo.origin}"})
 @RestController
 @RequiredArgsConstructor
 @Slf4j

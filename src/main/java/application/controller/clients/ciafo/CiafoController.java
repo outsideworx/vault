@@ -1,9 +1,9 @@
-package application.controller.clients;
+package application.controller.clients.ciafo;
 
 import application.controller.ModelVisitor;
 import application.converter.clients.CiafoConverter;
-import application.entity.clients.CiafoItem;
-import application.entity.clients.mapping.CiafoThumbnails;
+import application.entity.clients.ciafo.CiafoItem;
+import application.entity.clients.ciafo.mapping.CiafoThumbnails;
 import application.repository.clients.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

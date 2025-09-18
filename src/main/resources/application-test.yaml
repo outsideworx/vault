@@ -3,9 +3,6 @@ app:
     ciafo:
       origin: "*"
       token: "test"
-    soupart:
-      origin: "*"
-      token: "test"
 server:
   port: 8080
   ssl:

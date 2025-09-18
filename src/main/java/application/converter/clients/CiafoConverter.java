@@ -1,7 +1,7 @@
 package application.converter.clients;
 
 import application.converter.ImageConverter;
-import application.entity.clients.CiafoItem;
+import application.entity.clients.ciafo.CiafoItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;

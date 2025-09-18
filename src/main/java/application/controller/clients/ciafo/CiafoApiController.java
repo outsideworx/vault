@@ -1,7 +1,7 @@
-package application.controller.clients;
+package application.controller.clients.ciafo;
 
-import application.entity.clients.mapping.CiafoFirstImage;
-import application.entity.clients.mapping.CiafoImages;
+import application.entity.clients.ciafo.mapping.CiafoFirstImage;
+import application.entity.clients.ciafo.mapping.CiafoImages;
 import application.repository.clients.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

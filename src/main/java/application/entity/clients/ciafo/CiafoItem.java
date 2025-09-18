@@ -1,4 +1,4 @@
-package application.entity.clients;
+package application.entity.clients.ciafo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
