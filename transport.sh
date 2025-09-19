@@ -10,7 +10,7 @@ SERVER_IP="$2"
 if [ "$1" == "--download" ]; then
     echo "Downloading files: $SERVER_IP"
     rsync -rvh --delete root@"$SERVER_IP":/home/outsideworx /tmp;
-elif [ "$1" == "--upload" ]; then
+elif [ "$1" == "--deploy" ]; then
     echo "Uploading project: $SERVER_IP"
     rsync -rvh --delete \
         "$SCRIPT_DIR/src" \
@@ -19,7 +19,15 @@ elif [ "$1" == "--upload" ]; then
         "$SCRIPT_DIR/Dockerfile" \
         "$SCRIPT_DIR/compose.yaml" \
         root@"$SERVER_IP":/home/outsideworx/vault
+    echo "Deployment starts: $SERVER_IP"
+    ssh root@"$SERVER_IP" "
+        cd /home/outsideworx/vault;
+        docker compose up --build --force-recreate --no-deps -d;
+        docker system prune -af;
+        cd /root;
+        rm -rf /home/outsideworx/vault;
+        docker logs vault -f;"
 else
-    echo "Error: Only download & upload modes are supported!"
+    echo "Error: Only download & deploy modes are supported!"
     exit 1
 fi
