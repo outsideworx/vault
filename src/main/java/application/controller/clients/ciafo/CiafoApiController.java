@@ -3,6 +3,7 @@ package application.controller.clients.ciafo;
 import application.entity.clients.ciafo.mapping.CiafoFirstImage;
 import application.entity.clients.ciafo.mapping.CiafoImages;
 import application.repository.clients.CiafoRepository;
+import application.service.GrafanaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,15 +20,19 @@ import java.util.List;
 final class CiafoApiController {
     private final CiafoRepository ciafoRepository;
 
+    private final GrafanaService grafanaService;
+
     @GetMapping("/api/come-in-and-find-out")
     List<CiafoFirstImage> getCiafoFirstImages(@RequestParam String category, @RequestParam int offset) {
         log.info("Incoming API request for category: [{}], with offset: [{}]", category, offset);
+        grafanaService.registerRequest("endpoint", "come-in-and-find-out", "fetch", "categories");
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
     @GetMapping("/api/cached/come-in-and-find-out")
     CiafoImages getCiafoImages(@RequestParam Long id) {
         log.info("Incoming API request for ID: [{}]", id);
+        grafanaService.registerRequest("endpoint", "come-in-and-find-out", "fetch", "details");
         return ciafoRepository.getImagesById(id);
     }
 }
