@@ -1,4 +1,12 @@
 services:
+  grafana:
+    container_name: grafana
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    image: grafana/grafana:12.2.0
+    ports:
+      - "3000:3000"
   postgres:
     container_name: postgres
     environment:
@@ -6,4 +14,8 @@ services:
     image: postgres:16.2
     ports:
       - "5432:5432"
-    restart: unless-stopped
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v3.6.0
+    volumes:
+      - ./prometheus-test.yaml:/etc/prometheus/prometheus.yml

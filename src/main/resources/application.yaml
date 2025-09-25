@@ -6,6 +6,15 @@ app:
     peeps:
       caller: "gaiapeeps"
       origin: "https://gaiapeeps.com"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  server:
+    port: 8080
+    ssl:
+      enabled: false
 server:
   port: 443
 spring:
