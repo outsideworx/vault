@@ -1,6 +1,7 @@
 package application.configuration;
 
 import application.configuration.utils.FilterConditions;
+import application.service.GrafanaService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
@@ -19,11 +20,14 @@ import java.io.IOException;
 final class AuthTokenFilter extends HttpFilter {
     private final FilterConditions filterConditions;
 
+    private final GrafanaService grafanaService;
+
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (filterConditions.notPreflightRequest(request) && filterConditions.apiRequest(request)) {
             if (filterConditions.invalidCallerIdOrAuthToken(request)) {
                 log.error("Invalid caller id or auth token for request: [{}]", request.getRequestURL());
+                grafanaService.registerRequest("exception", "bad_credentials");
                 throw new BadCredentialsException("Invalid caller id or auth token.");
             }
         }
