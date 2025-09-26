@@ -6,6 +6,9 @@ app:
     peeps:
       caller: "gaiapeeps"
       origin: "https://gaiapeeps.com"
+  services:
+    grafana:
+      url: "https://services.outsideworx.net:3000"
 management:
   endpoints:
     web:

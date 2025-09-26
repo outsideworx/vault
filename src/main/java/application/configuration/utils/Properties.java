@@ -9,13 +9,19 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "app")
 @Data
-class Properties {
-    private Map<String, Client> clients;
+public class Properties {
+    private final Map<String, Client> clients;
+    private final Map<String, Service> services;
 
     @Data
-    static class Client {
+    static final class Client {
         private String caller;
         private String origin;
         private String token;
+    }
+
+    @Data
+    public static final class Service {
+        private String url;
     }
 }
