@@ -25,8 +25,6 @@ elif [ "$1" == "--deploy" ]; then
         cd /home/outsideworx/vault;
         docker compose up --build --force-recreate --no-deps -d;
         docker system prune -af;
-        cd /root;
-        rm -rf /home/outsideworx/vault;
         docker logs vault -f;"
 else
     echo "Error: Only download & deploy modes are supported!"
