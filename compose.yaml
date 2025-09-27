@@ -28,7 +28,7 @@ services:
   prometheus:
     container_name: prometheus
     image: prom/prometheus:v3.6.0
-    restart: unless-stopped
+    restart: always
     user: root
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
@@ -42,7 +42,7 @@ services:
       - .env
     ports:
       - "443:443"
-    restart: on-failure
+    restart: on-failure:4
     volumes:
       - ${SERVER_SSL_CERTIFICATE}:${SERVER_SSL_CERTIFICATE}:ro
       - ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:ro
