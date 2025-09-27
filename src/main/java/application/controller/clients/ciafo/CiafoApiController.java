@@ -25,14 +25,14 @@ final class CiafoApiController {
     @GetMapping("/api/come-in-and-find-out")
     List<CiafoFirstImage> getCiafoFirstImages(@RequestParam String category, @RequestParam int offset) {
         log.info("Incoming API request for category: [{}], with offset: [{}]", category, offset);
-        grafanaService.registerRequest("endpoint", "come-in-and-find-out", "fetch", "categories");
+        grafanaService.registerRequest("come-in-and-find-out", "categories");
         return ciafoRepository.getFirstImagesByCategoryAndOffset(category, offset);
     }
 
     @GetMapping("/api/cached/come-in-and-find-out")
     CiafoImages getCiafoImages(@RequestParam Long id) {
         log.info("Incoming API request for ID: [{}]", id);
-        grafanaService.registerRequest("endpoint", "come-in-and-find-out", "fetch", "details");
+        grafanaService.registerRequest("come-in-and-find-out", "details");
         return ciafoRepository.getImagesById(id);
     }
 }

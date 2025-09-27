@@ -23,7 +23,7 @@ final class PeepsApiController {
     @GetMapping("/api/gaiapeeps")
     List<PeepsItem> getPeeps() {
         log.info("Incoming API request: gaiapeeps");
-        grafanaService.registerRequest("endpoint", "gaiapeeps", "fetch", "all");
+        grafanaService.registerRequest("gaiapeeps", "all");
         return peepsRepository.findAll();
     }
 }

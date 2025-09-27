@@ -27,7 +27,7 @@ final class AuthTokenFilter extends HttpFilter {
         if (filterConditions.notPreflightRequest(request) && filterConditions.apiRequest(request)) {
             if (filterConditions.invalidCallerIdOrAuthToken(request)) {
                 log.error("Invalid caller id or auth token for request: [{}]", request.getRequestURL());
-                grafanaService.registerRequest("exception", "bad_credentials");
+                grafanaService.registerException("bad_credentials");
                 throw new BadCredentialsException("Invalid caller id or auth token.");
             }
         }
