@@ -9,6 +9,8 @@ app:
   services:
     grafana:
       url: "https://services.outsideworx.net:3000"
+    loki:
+      url: "http://loki:3100"
 management:
   endpoints:
     web:

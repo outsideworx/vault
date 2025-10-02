@@ -16,6 +16,9 @@ services:
       - ${SERVER_SSL_CERTIFICATE}:${SERVER_SSL_CERTIFICATE}:ro
       - ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:ro
       - /home/outsideworx/grafana:/var/lib/grafana
+  loki:
+    container_name: loki
+    image: grafana/loki:3.5.5
   postgres:
     container_name: postgres
     environment:
@@ -48,4 +51,3 @@ services:
     volumes:
       - ${SERVER_SSL_CERTIFICATE}:${SERVER_SSL_CERTIFICATE}:ro
       - ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:ro
-      - /home/outsideworx/logs:/tmp/outsideworx/logs
