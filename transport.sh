@@ -16,6 +16,7 @@ elif [ "$1" == "--deploy" ]; then
         "$SCRIPT_DIR/.env" \
         "$SCRIPT_DIR/compose.yaml" \
         "$SCRIPT_DIR/Dockerfile" \
+        "$SCRIPT_DIR/loki.yaml" \
         "$SCRIPT_DIR/pom.xml" \
         "$SCRIPT_DIR/prometheus.yaml" \
         "$SCRIPT_DIR/src" \
