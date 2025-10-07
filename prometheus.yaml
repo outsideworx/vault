@@ -1,9 +1,21 @@
 global:
-  scrape_interval: 30s
+  scrape_interval: 1m
 scrape_configs:
   - job_name: loki
     static_configs:
       - targets: [ "loki:3100" ]
+  - job_name: pages
+    metrics_path: /metrics.txt
+    static_configs:
+      - targets: [
+        "come-in-and-find-out.ch",
+        "duckumbrella.net",
+        "gaiapeeps.com",
+        "igli.info",
+        "outsideworx.net",
+        "soupart.net",
+        "soupkitchen.info"
+      ]
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:
