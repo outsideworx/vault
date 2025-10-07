@@ -35,9 +35,6 @@ services:
       - /home/outsideworx/data:/var/lib/postgresql/data
   prometheus:
     container_name: prometheus
-    depends_on:
-      - loki
-      - vault
     image: prom/prometheus:v3.6.0
     restart: unless-stopped
     user: root
