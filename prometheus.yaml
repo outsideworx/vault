@@ -6,6 +6,7 @@ scrape_configs:
       - targets: [ "loki:3100" ]
   - job_name: pages
     metrics_path: /metrics.txt
+    scheme: https
     static_configs:
       - targets: [
         "come-in-and-find-out.ch",
