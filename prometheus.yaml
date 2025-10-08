@@ -6,6 +6,7 @@ scrape_configs:
       - targets: [ "loki:3100" ]
   - job_name: pages
     metrics_path: /metrics.txt
+    proxy_url: http://tinyproxy:8888
     scheme: https
     static_configs:
       - targets: [
