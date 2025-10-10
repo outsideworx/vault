@@ -10,7 +10,7 @@
     <style>
         .title-image {
             display: block;
-            margin: 0 auto 20px;
+            margin: 0 auto 0;
             border: 2px solid black;
             border-radius: 25px;
             max-width: 66%;
@@ -25,7 +25,12 @@
 <body>
 <div class="container mt-4 custom-container">
     <img src="/img/clients/gaiapeeps.webp" alt="" class="title-image">
+    <a th:href="@{'/grafana'}" target="_blank">
+        <img src="/img/grafana.svg" width="32px" alt="" title="My analytics dashboard">
+    </a>
     <br>
+    <br>
+
     <form th:action="@{'/gaiapeeps'}" method="post">
         <button class="btn btn-success mb-3 me-2" type="submit">
             <i class="bi bi-floppy me-1"></i>
