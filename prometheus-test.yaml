@@ -10,8 +10,8 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets: [
-        "come-in-and-find-out:443",
-        "gaiapeeps:443"
+        "come-in-and-find-out:80",
+        "gaiapeeps:80"
       ]
     tls_config:
       insecure_skip_verify: true

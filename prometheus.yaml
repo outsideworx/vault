@@ -9,13 +9,13 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets: [
-        "come-in-and-find-out:443",
-        "duckumbrella:443",
-        "gaiapeeps:443",
-        "igli:443",
-        "outsideworx:443",
-        "soupart:443",
-        "soupkitchen:443"
+        "come-in-and-find-out:80",
+        "duckumbrella:80",
+        "gaiapeeps:80",
+        "igli:80",
+        "outsideworx:80",
+        "soupart:80",
+        "soupkitchen:80"
       ]
     tls_config:
       insecure_skip_verify: true
