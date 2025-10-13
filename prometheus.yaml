@@ -6,7 +6,6 @@ scrape_configs:
       - targets: [ "loki:3100" ]
   - job_name: sites
     metrics_path: /metrics.txt
-    scheme: https
     static_configs:
       - targets: [
         "come-in-and-find-out:80",
@@ -17,8 +16,6 @@ scrape_configs:
         "soupart:80",
         "soupkitchen:80"
       ]
-    tls_config:
-      insecure_skip_verify: true
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:
