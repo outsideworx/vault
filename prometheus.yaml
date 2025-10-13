@@ -19,4 +19,4 @@ scrape_configs:
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:
-      - targets: [ "vault:8080" ]
+      - targets: [ "vault:80" ]
