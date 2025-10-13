@@ -24,6 +24,3 @@ services:
     image: prom/prometheus:v3.6.0
     volumes:
       - ./prometheus-test.yaml:/etc/prometheus/prometheus.yml
-  tinyproxy:
-    container_name: tinyproxy
-    image: vimagick/tinyproxy

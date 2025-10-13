@@ -9,7 +9,12 @@ scrape_configs:
     proxy_url: http://tinyproxy:8888
     scheme: https
     static_configs:
-      - targets: [ "outsideworx.net" ]
+      - targets: [
+        "come-in-and-find-out:443",
+        "gaiapeeps:443"
+      ]
+    tls_config:
+      insecure_skip_verify: true
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:

@@ -6,18 +6,19 @@ scrape_configs:
       - targets: [ "loki:3100" ]
   - job_name: sites
     metrics_path: /metrics.txt
-    proxy_url: http://tinyproxy:8888
     scheme: https
     static_configs:
       - targets: [
-        "come-in-and-find-out.ch",
-        "duckumbrella.net",
-        "gaiapeeps.com",
-        "igli.info",
-        "outsideworx.net",
-        "soupart.net",
-        "soupkitchen.info"
+        "come-in-and-find-out:443",
+        "duckumbrella:443",
+        "gaiapeeps:443",
+        "igli:443",
+        "outsideworx:443",
+        "soupart:443",
+        "soupkitchen:443"
       ]
+    tls_config:
+      insecure_skip_verify: true
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:
