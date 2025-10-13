@@ -1,0 +1,23 @@
+FROM alpine/git AS fetcher
+ARG NAME
+RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
+
+FROM httpd:2.4-alpine
+COPY --from=fetcher /site /usr/local/apache2/htdocs/
+
+RUN sed -i \
+    -e 's|#LoadModule ssl_module modules/mod_ssl.so|LoadModule ssl_module modules/mod_ssl.so|' \
+    -e 's|#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|' \
+    -e '/^Listen 80/d' \
+    -e '$aInclude conf/extra/httpd-ssl.conf' \
+    -e '$aServerName services.outsideworx.net' \
+    conf/httpd.conf
+
+RUN sed -i \
+    -e 's|^ServerName.*|ServerName services.outsideworx.net|' \
+    -e 's|^SSLCertificateFile.*|SSLCertificateFile "/usr/local/apache2/conf/fullchain.pem"|' \
+    -e 's|^SSLCertificateKeyFile.*|SSLCertificateKeyFile "/usr/local/apache2/conf/privkey.pem"|' \
+    conf/extra/httpd-ssl.conf
+
+EXPOSE 443
+CMD ["httpd-foreground"]

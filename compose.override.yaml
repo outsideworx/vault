@@ -1,16 +1,12 @@
-x-common-args: &common-args
-  SERVER_SSL_CERTIFICATE: ${SERVER_SSL_CERTIFICATE}
-  SERVER_SSL_CERTIFICATE_PRIVATE_KEY: ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}
 x-common-certificate: &common-certificate
-  ${SERVER_SSL_CERTIFICATE}:${SERVER_SSL_CERTIFICATE}
+  ${SERVER_SSL_CERTIFICATE}:/usr/local/apache2/conf/fullchain.pem
 x-common-certificate-private-key: &common-certificate-private-key
-  ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}
+  ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:/usr/local/apache2/conf/privkey.pem
 services:
   come-in-and-find-out:
     build:
       args:
         NAME: come-in-and-find-out
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: come-in-and-find-out
     ports:
@@ -23,7 +19,6 @@ services:
     build:
       args:
         NAME: duckumbrella
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: duckumbrella
     ports:
@@ -36,7 +31,6 @@ services:
     build:
       args:
         NAME: gaiapeeps
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: gaiapeeps
     ports:
@@ -49,7 +43,6 @@ services:
     build:
       args:
         NAME: igli
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: igli
     ports:
@@ -62,7 +55,6 @@ services:
     build:
       args:
         NAME: outsideworx
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: outsideworx
     ports:
@@ -75,7 +67,6 @@ services:
     build:
       args:
         NAME: soupart
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: soupart
     ports:
@@ -88,7 +79,6 @@ services:
     build:
       args:
         NAME: soupkitchen
-        <<: *common-args
       dockerfile: Dockerfile.site
     container_name: soupkitchen
     ports:
