@@ -3,9 +3,14 @@ ARG NAME
 RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
 
 FROM httpd:2.4-alpine
+ARG NAME
+ARG API_KEY
 COPY --from=fetcher /site /usr/local/apache2/htdocs/
 
 RUN sed -i \
+    -e 's|#LoadModule headers_module modules/mod_headers.so|LoadModule headers_module modules/mod_headers.so|' \
+    -e 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|' \
+    -e 's|#LoadModule proxy_http_module modules/mod_proxy_http.so|LoadModule proxy_http_module modules/mod_proxy_http.so|' \
     -e 's|#LoadModule ssl_module modules/mod_ssl.so|LoadModule ssl_module modules/mod_ssl.so|' \
     -e 's|#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|' \
     -e '/^Listen 80/d' \
@@ -20,7 +25,7 @@ RUN sed -i \
     -e '/<\/VirtualHost>/i <Location "/metrics.txt">\nRequire all denied\n</Location>' \
     conf/extra/httpd-ssl.conf
 
-RUN cat <<'EOF' > conf/extra/httpd-metrics.conf
+RUN cat <<EOF > conf/extra/httpd-metrics.conf
 Listen 80
 <VirtualHost *:80>
     DocumentRoot "/usr/local/apache2/htdocs"
@@ -30,6 +35,34 @@ Listen 80
 </VirtualHost>
 EOF
 RUN echo "Include conf/extra/httpd-metrics.conf" >> conf/httpd.conf
+
+RUN cat <<EOF > conf/extra/httpd-proxy.conf
+ProxyRequests Off
+ProxyPreserveHost On
+SSLProxyEngine On
+ProxyPass        "/api/"  "https://vault/api/"
+ProxyPassReverse "/api/"  "https://vault/api/"
+<IfModule mod_headers.c>
+    RequestHeader set X-Caller-Id "${NAME}"
+    RequestHeader set X-Auth-Token "${API_KEY}"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy " \
+        base-uri 'none';                        \
+        connect-src 'self';                     \
+        default-src 'none';                     \
+        font-src * https:;                      \
+        frame-ancestors 'none';                 \
+        frame-src * https:;                     \
+        form-action 'self';                     \
+        img-src 'self' data:;                   \
+        media-src * https:;                     \
+        script-src * 'unsafe-inline';           \
+        style-src * 'unsafe-inline';"
+</IfModule>
+EOF
+RUN echo "Include conf/extra/httpd-proxy.conf" >> conf/httpd.conf
 
 EXPOSE 80 443
 CMD ["httpd-foreground"]
