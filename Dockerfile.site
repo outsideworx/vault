@@ -14,6 +14,8 @@ RUN sed -i \
     -e 's|#LoadModule ssl_module modules/mod_ssl.so|LoadModule ssl_module modules/mod_ssl.so|' \
     -e 's|#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|LoadModule socache_shmcb_module modules/mod_socache_shmcb.so|' \
     -e '/^Listen 80/d' \
+    -e '$aInclude conf/extra/httpd-metrics.conf' \
+    -e '$aInclude conf/extra/httpd-proxy.conf' \
     -e '$aInclude conf/extra/httpd-ssl.conf' \
     -e '$aServerName services.outsideworx.net' \
     conf/httpd.conf
@@ -34,7 +36,6 @@ Listen 80
     </LocationMatch>
 </VirtualHost>
 EOF
-RUN echo "Include conf/extra/httpd-metrics.conf" >> conf/httpd.conf
 
 RUN cat <<EOF > conf/extra/httpd-proxy.conf
 ProxyRequests Off
@@ -62,7 +63,6 @@ ProxyPassReverse "/api/"  "https://vault/api/"
         style-src * 'unsafe-inline';"
 </IfModule>
 EOF
-RUN echo "Include conf/extra/httpd-proxy.conf" >> conf/httpd.conf
 
 EXPOSE 80 443
 CMD ["httpd-foreground"]

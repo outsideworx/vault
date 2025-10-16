@@ -3,7 +3,41 @@ ARG NAME
 RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
 
 FROM httpd:2.4-alpine
+ARG NAME
 COPY --from=fetcher /site /usr/local/apache2/htdocs/
+
+RUN sed -i \
+    -e 's|#LoadModule headers_module modules/mod_headers.so|LoadModule headers_module modules/mod_headers.so|' \
+    -e 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|' \
+    -e 's|#LoadModule proxy_http_module modules/mod_proxy_http.so|LoadModule proxy_http_module modules/mod_proxy_http.so|' \
+    -e '$aInclude conf/extra/httpd-proxy.conf' \
+    conf/httpd.conf
+
+RUN cat <<EOF > conf/extra/httpd-proxy.conf
+ProxyRequests Off
+ProxyPreserveHost On
+ProxyPass        "/api/"  "http://host.docker.internal/api/"
+ProxyPassReverse "/api/"  "http://host.docker.internal/api/"
+<IfModule mod_headers.c>
+    RequestHeader set X-Caller-Id "${NAME}"
+    RequestHeader set X-Auth-Token "test"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy " \
+        base-uri 'none';                        \
+        connect-src 'self';                     \
+        default-src 'none';                     \
+        font-src * https:;                      \
+        frame-ancestors 'none';                 \
+        frame-src * https:;                     \
+        form-action 'self';                     \
+        img-src 'self' data:;                   \
+        media-src * https:;                     \
+        script-src * 'unsafe-inline';           \
+        style-src * 'unsafe-inline';"
+</IfModule>
+EOF
 
 EXPOSE 80
 CMD ["httpd-foreground"]

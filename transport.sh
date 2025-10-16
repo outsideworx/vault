@@ -26,7 +26,8 @@ elif [ "$1" == "--deploy" ]; then
     echo "Deployment starts: $SERVER_IP"
     ssh root@"$SERVER_IP" "
         cd /home/outsideworx/vault;
-        docker compose up --build --force-recreate --no-deps -d;
+        docker compose build --no-cache --pull
+        docker compose up --force-recreate --no-deps -d;
         docker system prune -af;
         docker logs vault -f;"
 else
