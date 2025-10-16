@@ -44,7 +44,7 @@ ProxyPass        "/api/"  "https://vault/api/"
 ProxyPassReverse "/api/"  "https://vault/api/"
 <IfModule mod_headers.c>
     RequestHeader set X-Caller-Id "${NAME}"
-    RequestHeader set X-Auth-Token "${API_KEY}"
+    RequestHeader set X-Auth-Token "${TOKEN}"
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
