@@ -8,10 +8,10 @@ scrape_configs:
     metrics_path: /metrics.txt
     static_configs:
       - targets: [
-        "come-in-and-find-out:80",
-        "gaiapeeps:80"
+        "come-in-and-find-out",
+        "gaiapeeps"
       ]
   - job_name: vault
     metrics_path: /actuator/prometheus
     static_configs:
-      - targets: [ "host.docker.internal:80" ]
+      - targets: [ "host.docker.internal" ]
