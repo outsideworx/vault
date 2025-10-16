@@ -4,7 +4,7 @@ RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
 
 FROM httpd:2.4-alpine
 ARG NAME
-ARG API_KEY
+ARG TOKEN
 COPY --from=fetcher /site /usr/local/apache2/htdocs/
 
 RUN sed -i \
