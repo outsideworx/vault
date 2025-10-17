@@ -65,7 +65,7 @@ ProxyPassReverse "/api/"  "https://vault/api/"
 </IfModule>
 <IfModule mod_ratelimit.c>
     SetOutputFilter RATE_LIMIT
-    SetEnv rate-limit 2048
+    SetEnv rate-limit 1536
 </IfModule>
 <IfModule mpm_event_module>
     MaxRequestWorkers 100
