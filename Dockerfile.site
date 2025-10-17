@@ -24,7 +24,8 @@ RUN sed -i \
 
 RUN find conf -type f -name '*.conf' -exec sed -i -E \
     -e '/^[[:space:]]*CustomLog([[:space:]]|\\)/,/[^\\]$/d' \
-    -e '/^[[:space:]]*ErrorLog/d' {} +
+    -e '/^[[:space:]]*ErrorLog/d' \
+    -e '/^[[:space:]]*TransferLog/d' {} +
 
 RUN cat <<EOF > conf/extra/httpd-logs.conf
 ErrorLogFormat "%{%Y-%m-%dT%H:%M:%S%z}t ERROR %P --- %a: %M"
