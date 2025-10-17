@@ -72,6 +72,5 @@ ProxyPassReverse "/api/"  "https://vault/api/"
 </IfModule>
 EOF
 
-ENV APACHE_NO_SIGWINCH=1
 EXPOSE 80 443
 CMD ["httpd-foreground"]
