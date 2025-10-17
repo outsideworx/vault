@@ -11,8 +11,20 @@ RUN sed -i \
     -e 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|' \
     -e 's|#LoadModule proxy_http_module modules/mod_proxy_http.so|LoadModule proxy_http_module modules/mod_proxy_http.so|' \
     -e 's|#LoadModule ratelimit_module modules/mod_ratelimit.so|LoadModule ratelimit_module modules/mod_ratelimit.so|' \
+    -e '$aInclude conf/extra/httpd-logs.conf' \
     -e '$aInclude conf/extra/httpd-proxy.conf' \
     conf/httpd.conf
+
+RUN find conf -type f -name '*.conf' -exec sed -i \
+    -e '/^[[:space:]]*CustomLog/d' \
+    -e '/^[[:space:]]*ErrorLog/d' {} +
+
+RUN cat <<EOF > conf/extra/httpd-logs.conf
+LogFormat "%{%Y-%m-%dT%H:%M:%S%z}t INFO %P --- %a: %r %>s" log_format
+CustomLog /dev/stdout log_format
+ErrorLogFormat "%{%Y-%m-%dT%H:%M:%S%z}t ERROR %P --- %a: %M"
+ErrorLog /dev/stderr
+EOF
 
 RUN cat <<EOF > conf/extra/httpd-proxy.conf
 ProxyRequests Off
