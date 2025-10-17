@@ -27,10 +27,11 @@ RUN find conf -type f -name '*.conf' -exec sed -i -E \
     -e '/^[[:space:]]*ErrorLog/d' {} +
 
 RUN cat <<EOF > conf/extra/httpd-logs.conf
-LogFormat "%{%Y-%m-%dT%H:%M:%S%z}t INFO %P --- %a: %r %>s" log_format
-CustomLog /dev/stdout log_format
 ErrorLogFormat "%{%Y-%m-%dT%H:%M:%S%z}t ERROR %P --- %a: %M"
 ErrorLog /dev/stderr
+LogFormat "%{%Y-%m-%dT%H:%M:%S%z}t INFO %P --- %a: %r %>s" log_format
+SetEnvIf Request_URI "^/metrics\.txt$" no_log
+CustomLog /dev/stdout log_format env=!no_log
 EOF
 
 RUN sed -i \
@@ -44,7 +45,7 @@ RUN cat <<EOF > conf/extra/httpd-metrics.conf
 Listen 80
 <VirtualHost *:80>
     DocumentRoot "/usr/local/apache2/htdocs"
-    <LocationMatch "^(?!/metrics.txt)">
+    <LocationMatch "^(?!/metrics\.txt$)">
         Require all denied
     </LocationMatch>
 </VirtualHost>
