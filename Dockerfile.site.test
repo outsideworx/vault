@@ -25,28 +25,28 @@ ProxyPassReverse "/api/"  "http://host.docker.internal/api/"
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Content-Security-Policy " \
-        base-uri 'none';                        \
-        connect-src 'self';                     \
-        default-src 'none';                     \
-        font-src * https:;                      \
-        frame-ancestors 'none';                 \
-        frame-src * https:;                     \
-        form-action 'self';                     \
-        img-src 'self' data:;                   \
-        media-src * https:;                     \
-        script-src * 'unsafe-inline';           \
-        style-src * 'unsafe-inline';"
+    Header always set Content-Security-Policy "         \
+        base-uri          'none';                       \
+        connect-src       'self';                       \
+        default-src       'none';                       \
+        font-src            *        https:;            \
+        frame-ancestors   'none';                       \
+        frame-src           *        https:;            \
+        form-action       'self';                       \
+        img-src           'self'     data:;             \
+        media-src           *        https:;            \
+        script-src          *       'unsafe-inline';    \
+        style-src           *       'unsafe-inline';"
 </IfModule>
 <IfModule mod_ratelimit.c>
     SetOutputFilter RATE_LIMIT
-    SetEnv rate-limit 640
+    SetEnv rate-limit   640
 </IfModule>
 <IfModule mpm_event_module>
-    StartServers       1
-    MinSpareThreads    4
-    ThreadsPerChild    4
-    MaxRequestWorkers  8
+    StartServers        1
+    MinSpareThreads     4
+    ThreadsPerChild     4
+    MaxRequestWorkers   8
 </IfModule>
 EOF
 

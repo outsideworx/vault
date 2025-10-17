@@ -12,7 +12,7 @@ services:
     container_name: come-in-and-find-out
     ports:
       - "9001:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -24,7 +24,7 @@ services:
     container_name: duckumbrella
     ports:
       - "9002:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -37,7 +37,7 @@ services:
     container_name: gaiapeeps
     ports:
       - "9003:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -49,7 +49,7 @@ services:
     container_name: igli
     ports:
       - "9004:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -61,7 +61,7 @@ services:
     container_name: outsideworx
     ports:
       - "9005:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -73,7 +73,7 @@ services:
     container_name: soupart
     ports:
       - "9006:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key
@@ -85,7 +85,7 @@ services:
     container_name: soupkitchen
     ports:
       - "9007:443"
-    restart: on-failure:4
+    restart: unless-stopped
     volumes:
       - *common-certificate
       - *common-certificate-private-key

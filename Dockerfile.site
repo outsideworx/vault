@@ -50,27 +50,28 @@ ProxyPassReverse "/api/"  "https://vault/api/"
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Content-Security-Policy " \
-        base-uri 'none';                        \
-        connect-src 'self';                     \
-        default-src 'none';                     \
-        font-src * https:;                      \
-        frame-ancestors 'none';                 \
-        frame-src * https:;                     \
-        form-action 'self';                     \
-        img-src 'self' data:;                   \
-        media-src * https:;                     \
-        script-src * 'unsafe-inline';           \
-        style-src * 'unsafe-inline';"
+    Header always set Content-Security-Policy "         \
+        base-uri          'none';                       \
+        connect-src       'self';                       \
+        default-src       'none';                       \
+        font-src            *        https:;            \
+        frame-ancestors   'none';                       \
+        frame-src           *        https:;            \
+        form-action       'self';                       \
+        img-src           'self'     data:;             \
+        media-src           *        https:;            \
+        script-src          *       'unsafe-inline';    \
+        style-src           *       'unsafe-inline';"
 </IfModule>
 <IfModule mod_ratelimit.c>
     SetOutputFilter RATE_LIMIT
     SetEnv rate-limit 1280
 </IfModule>
 <IfModule mpm_event_module>
-    MaxRequestWorkers 75
+    MaxRequestWorkers 100
 </IfModule>
 EOF
 
+ENV APACHE_NO_SIGWINCH=1
 EXPOSE 80 443
 CMD ["httpd-foreground"]
