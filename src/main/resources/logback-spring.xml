@@ -6,7 +6,6 @@
         <labels>
             app = vault
         </labels>
-        <message class="com.github.loki4j.logback.JsonLayout"/>
     </appender>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <root level="INFO">

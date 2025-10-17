@@ -1,3 +1,5 @@
+x-common-loki-url: &common-loki-url
+  loki-url: http://host.docker.internal:3100/loki/api/v1/push
 services:
   come-in-and-find-out:
     build:
@@ -5,6 +7,11 @@ services:
         NAME: come-in-and-find-out
       dockerfile: Dockerfile.site.test
     container_name: come-in-and-find-out
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=come-in-and-find-out"
+        <<: *common-loki-url
     ports:
       - "9001:80"
   duckumbrella:
@@ -21,6 +28,11 @@ services:
         NAME: gaiapeeps
       dockerfile: Dockerfile.site.test
     container_name: gaiapeeps
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=gaiapeeps"
+        <<: *common-loki-url
     ports:
       - "9003:80"
   igli:

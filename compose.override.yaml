@@ -2,6 +2,8 @@ x-common-certificate: &common-certificate
   ${SERVER_SSL_CERTIFICATE}:/usr/local/apache2/conf/fullchain.pem
 x-common-certificate-private-key: &common-certificate-private-key
   ${SERVER_SSL_CERTIFICATE_PRIVATE_KEY}:/usr/local/apache2/conf/privkey.pem
+x-common-loki-url: &common-loki-url
+  loki-url: http://172.17.0.1:3100/loki/api/v1/push
 services:
   come-in-and-find-out:
     build:
@@ -10,6 +12,11 @@ services:
         TOKEN: $APP_CLIENTS_CIAFO_TOKEN
       dockerfile: Dockerfile.site
     container_name: come-in-and-find-out
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=come-in-and-find-out"
+        <<: *common-loki-url
     ports:
       - "9001:443"
     restart: unless-stopped
@@ -22,6 +29,11 @@ services:
         NAME: duckumbrella
       dockerfile: Dockerfile.site
     container_name: duckumbrella
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=duckumbrella"
+        <<: *common-loki-url
     ports:
       - "9002:443"
     restart: unless-stopped
@@ -35,6 +47,11 @@ services:
         TOKEN: $APP_CLIENTS_PEEPS_TOKEN
       dockerfile: Dockerfile.site
     container_name: gaiapeeps
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=gaiapeeps"
+        <<: *common-loki-url
     ports:
       - "9003:443"
     restart: unless-stopped
@@ -47,6 +64,11 @@ services:
         NAME: igli
       dockerfile: Dockerfile.site
     container_name: igli
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=igli"
+        <<: *common-loki-url
     ports:
       - "9004:443"
     restart: unless-stopped
@@ -59,6 +81,11 @@ services:
         NAME: outsideworx
       dockerfile: Dockerfile.site
     container_name: outsideworx
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=outsideworx"
+        <<: *common-loki-url
     ports:
       - "9005:443"
     restart: unless-stopped
@@ -71,6 +98,11 @@ services:
         NAME: soupart
       dockerfile: Dockerfile.site
     container_name: soupart
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=soupart"
+        <<: *common-loki-url
     ports:
       - "9006:443"
     restart: unless-stopped
@@ -83,6 +115,11 @@ services:
         NAME: soupkitchen
       dockerfile: Dockerfile.site
     container_name: soupkitchen
+    logging:
+      driver: loki
+      options:
+        loki-external-labels: "app=soupkitchen"
+        <<: *common-loki-url
     ports:
       - "9007:443"
     restart: unless-stopped

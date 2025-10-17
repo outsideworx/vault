@@ -26,6 +26,8 @@ elif [ "$1" == "--deploy" ]; then
     echo "Deployment starts: $SERVER_IP"
     ssh root@"$SERVER_IP" "
         cd /home/outsideworx/vault;
+        docker plugin inspect loki >/dev/null 2>&1 ||
+        docker plugin install grafana/loki-docker-driver:3.5.7-amd64 --alias loki --grant-all-permissions;
         docker compose build --no-cache --pull
         docker compose up --force-recreate --no-deps -d;
         docker system prune -af;
