@@ -22,8 +22,8 @@ RUN sed -i \
     -e '$aServerName services.outsideworx.net' \
     conf/httpd.conf
 
-RUN find conf -type f -name '*.conf' -exec sed -i \
-    -e '/^[[:space:]]*CustomLog/d' \
+RUN find conf -type f -name '*.conf' -exec sed -i -E \
+    -e '/^[[:space:]]*CustomLog([[:space:]]|\\)/,/[^\\]$/d' \
     -e '/^[[:space:]]*ErrorLog/d' {} +
 
 RUN cat <<EOF > conf/extra/httpd-logs.conf
