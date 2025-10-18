@@ -70,6 +70,12 @@ ProxyPassReverse "/api/"  "https://vault/api/"
         script-src          *       'unsafe-inline';    \
         style-src           *       'unsafe-inline';"
 </IfModule>
+<IfModule mod_alias.c>
+    RedirectMatch 403 ^/\.
+    RedirectMatch 403 \.php$
+    RedirectMatch 403 ^(?!/(?:metrics|robots)).*\.txt$
+    RedirectMatch 403 ^(?!/sitemap).*\.xml$
+</IfModule>
 <IfModule mod_ratelimit.c>
     SetOutputFilter RATE_LIMIT
     SetEnv rate-limit 1536
