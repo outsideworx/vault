@@ -35,13 +35,6 @@ SetEnvIf Request_URI "^/metrics\.txt$" no_log
 CustomLog /dev/stdout log_format env=!no_log
 EOF
 
-RUN sed -i \
-    -e 's|^ServerName.*|ServerName services.outsideworx.net|' \
-    -e 's|^SSLCertificateFile.*|SSLCertificateFile "/usr/local/apache2/conf/fullchain.pem"|' \
-    -e 's|^SSLCertificateKeyFile.*|SSLCertificateKeyFile "/usr/local/apache2/conf/privkey.pem"|' \
-    -e '/<\/VirtualHost>/i <Location "/metrics.txt">\nRequire all denied\n</Location>' \
-    conf/extra/httpd-ssl.conf
-
 RUN cat <<EOF > conf/extra/httpd-metrics.conf
 Listen 80
 <VirtualHost *:80>
@@ -85,6 +78,13 @@ ProxyPassReverse "/api/"  "https://vault/api/"
     MaxRequestWorkers 100
 </IfModule>
 EOF
+
+RUN sed -i \
+    -e 's|^ServerName.*|ServerName services.outsideworx.net|' \
+    -e 's|^SSLCertificateFile.*|SSLCertificateFile "/usr/local/apache2/conf/fullchain.pem"|' \
+    -e 's|^SSLCertificateKeyFile.*|SSLCertificateKeyFile "/usr/local/apache2/conf/privkey.pem"|' \
+    -e '/<\/VirtualHost>/i <Location "/metrics.txt">\nRequire all denied\n</Location>' \
+    conf/extra/httpd-ssl.conf
 
 EXPOSE 80 443
 CMD ["httpd-foreground"]
