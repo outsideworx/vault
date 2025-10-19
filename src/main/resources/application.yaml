@@ -22,6 +22,8 @@ management:
       enabled: false
 server:
   port: 443
+  tomcat:
+    max-part-count: 50
 spring:
   cache:
     type: caffeine
