@@ -23,8 +23,6 @@ services:
   loki:
     container_name: loki
     image: grafana/loki:3.5.5
-    ports:
-      - "3100:3100"
     restart: unless-stopped
     user: root
     volumes:

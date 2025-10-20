@@ -5,6 +5,7 @@ RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
 FROM httpd:2.4-alpine
 ARG NAME
 ARG TOKEN
+ENV NAME=${NAME}
 COPY --from=fetcher /site /usr/local/apache2/htdocs/
 
 RUN sed -i \
@@ -29,11 +30,22 @@ RUN find conf -type f -name '*.conf' -exec sed -i -E \
 
 RUN cat <<EOF > conf/extra/httpd-logs.conf
 ErrorLogFormat "ERROR %P --- %a: %M"
-ErrorLog /dev/stderr
-LogFormat "INFO %P --- %a: %r %>s" log_format
+ErrorLog |/usr/local/bin/send-to-loki.sh
+LogFormat " INFO %P --- %a: %r %>s" log_format
 SetEnvIf Request_URI "^/metrics\.txt$" no_log
-CustomLog /dev/stdout log_format env=!no_log
+CustomLog |/usr/local/bin/send-to-loki.sh log_format env=!no_log
 EOF
+
+RUN cat <<'EOF' > /usr/local/bin/send-to-loki.sh
+#!/bin/sh
+while read -r line; do
+    timestamp=$(($(date +%s) * 1000000000))
+    json="{\"streams\": [{\"stream\": {\"app\":\"${NAME}\"}, \"values\": [[\"$timestamp\", \"$line\"]]}]}"
+    curl -s -X POST -H "Content-Type: application/json" -d "$json" http://loki:3100/loki/api/v1/push
+done
+EOF
+RUN apk add curl; \
+    chmod +x /usr/local/bin/send-to-loki.sh
 
 RUN cat <<EOF > conf/extra/httpd-metrics.conf
 Listen 80
