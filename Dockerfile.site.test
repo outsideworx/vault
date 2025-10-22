@@ -12,6 +12,7 @@ RUN sed -i \
     -e 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|' \
     -e 's|#LoadModule proxy_http_module modules/mod_proxy_http.so|LoadModule proxy_http_module modules/mod_proxy_http.so|' \
     -e 's|#LoadModule ratelimit_module modules/mod_ratelimit.so|LoadModule ratelimit_module modules/mod_ratelimit.so|' \
+    -e 's|#LoadModule reqtimeout_module modules/mod_reqtimeout.so|LoadModule reqtimeout_module modules/mod_reqtimeout.so|' \
     -e '$aInclude conf/extra/httpd-logs.conf' \
     -e '$aInclude conf/extra/httpd-proxy.conf' \
     conf/httpd.conf
@@ -78,6 +79,9 @@ ProxyPassReverse "/api/"  "http://host.docker.internal/api/"
     MinSpareThreads     4
     ThreadsPerChild     4
     MaxRequestWorkers   8
+</IfModule>
+<IfModule reqtimeout_module>
+    RequestReadTimeout header=2-5,MinRate=2048 body=5-30,MinRate=4096
 </IfModule>
 EOF
 
