@@ -1,7 +1,5 @@
-FROM mcr.microsoft.com/openjdk/jdk:21-ubuntu
+FROM openjdk:21
+COPY target/*.jar vault.jar
 
-RUN apt update
-RUN apt install maven -y
-
-COPY . .
-CMD ["mvn", "spring-boot:run"]
+EXPOSE 80 443
+CMD ["java", "-jar", "vault.jar"]

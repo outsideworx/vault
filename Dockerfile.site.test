@@ -1,8 +1,8 @@
-FROM alpine/git AS fetcher
+FROM bitnami/git AS fetcher
 ARG NAME
 RUN git clone --depth 1 https://github.com/outsideworx/${NAME}.git /site
 
-FROM httpd:2.4-alpine
+FROM httpd:2.4
 ARG NAME
 ENV NAME=${NAME}
 COPY --from=fetcher /site /usr/local/apache2/htdocs/
@@ -37,7 +37,7 @@ while read -r line; do
     curl -s -X POST -H "Content-Type: application/json" -d "$json" http://loki:3100/loki/api/v1/push
 done
 EOF
-RUN apk add curl; \
+RUN apt update -qq && apt install -y curl; \
     chmod +x /usr/local/bin/send-to-loki.sh
 
 RUN cat <<EOF > conf/extra/httpd-proxy.conf

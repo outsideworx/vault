@@ -11,6 +11,8 @@ if [ "$1" == "--download" ]; then
     echo "Downloading files: $SERVER_IP"
     rsync -rvh --delete devs@"$SERVER_IP":/home/outsideworx /tmp;
 elif [ "$1" == "--deploy" ]; then
+    echo "Packaging project"
+    mvn clean package -f "$SCRIPT_DIR/pom.xml"
     echo "Uploading project: $SERVER_IP"
     rsync -rvh --delete \
         "$SCRIPT_DIR/.env" \
@@ -22,7 +24,7 @@ elif [ "$1" == "--deploy" ]; then
         "$SCRIPT_DIR/loki.yaml" \
         "$SCRIPT_DIR/pom.xml" \
         "$SCRIPT_DIR/prometheus.yaml" \
-        "$SCRIPT_DIR/src" \
+        "$SCRIPT_DIR/target" \
         root@"$SERVER_IP":/home/outsideworx/vault
     echo "Deployment starts: $SERVER_IP"
     ssh root@"$SERVER_IP" "
