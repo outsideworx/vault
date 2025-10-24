@@ -18,6 +18,7 @@ elif [ "$1" == "--deploy" ]; then
         "$SCRIPT_DIR/compose.yaml" \
         "$SCRIPT_DIR/Dockerfile" \
         "$SCRIPT_DIR/Dockerfile.site" \
+        "$SCRIPT_DIR/grafana.ini" \
         "$SCRIPT_DIR/loki.yaml" \
         "$SCRIPT_DIR/pom.xml" \
         "$SCRIPT_DIR/prometheus.yaml" \
