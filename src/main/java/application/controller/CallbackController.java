@@ -2,7 +2,7 @@ package application.controller;
 
 import application.model.Callback;
 import application.model.CallbackEntity;
-import application.repository.clients.CiafoMessageRepository;
+import application.repository.CallbackRepository;
 import application.service.EmailService;
 import com.mailersend.sdk.exceptions.MailerSendException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 final class CallbackController {
-    private final CiafoMessageRepository ciafoMessageRepository;
+    private final CallbackRepository callbackRepository;
 
     private final EmailService emailService;
 
@@ -40,7 +40,7 @@ final class CallbackController {
             callbackEntity.setAddress(callback.getAddress());
             callbackEntity.setProduct(callback.getProduct());
             callbackEntity.setRecipient(recipient);
-            ciafoMessageRepository.save(callbackEntity);
+            callbackRepository.save(callbackEntity);
             log.info("Callback saved with id: [{}]", callbackEntity.getId());
         }
     }
