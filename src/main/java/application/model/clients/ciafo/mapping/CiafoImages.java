@@ -1,4 +1,4 @@
-package application.entity.clients.ciafo.mapping;
+package application.model.clients.ciafo.mapping;
 
 public interface CiafoImages extends CiafoFirstImage {
     String getImage2();

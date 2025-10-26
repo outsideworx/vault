@@ -2,7 +2,7 @@ package application.controller.clients.peeps;
 
 import application.controller.ModelVisitor;
 import application.converter.clients.PeepsConverter;
-import application.entity.clients.peeps.PeepsItem;
+import application.model.clients.peeps.PeepsEntity;
 import application.repository.clients.PeepsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ class PeepsController implements ModelVisitor {
     @PostMapping("/gaiapeeps")
     public String submit(@RequestParam Map<String, String> params) {
         log.info("Upload processor starts: gaiapeeps");
-        List<PeepsItem> items = peepsConverter.processItems(params);
+        List<PeepsEntity> items = peepsConverter.processItems(params);
         peepsRepository.saveAll(items);
         peepsRepository.deleteAllById(peepsConverter.filterIdsToDelete(items));
         return "redirect:/";

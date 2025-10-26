@@ -1,8 +1,7 @@
 package application.converter.clients;
 
 import application.converter.ItemsConverter;
-import application.entity.clients.ciafo.CiafoItem;
-import application.entity.clients.peeps.PeepsItem;
+import application.model.clients.peeps.PeepsEntity;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
 
@@ -12,20 +11,20 @@ import java.util.Objects;
 
 @Component
 public final class PeepsConverter extends ItemsConverter {
-    public List<Long> filterIdsToDelete(List<PeepsItem> items) {
+    public List<Long> filterIdsToDelete(List<PeepsEntity> items) {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(PeepsItem::getDelete)
-                .map(PeepsItem::getId)
+                .filter(PeepsEntity::getDelete)
+                .map(PeepsEntity::getId)
                 .toList();
     }
 
-    public List<PeepsItem> processItems(Map<String, String> params) {
+    public List<PeepsEntity> processItems(Map<String, String> params) {
         return getIterators(params)
                 .stream()
                 .map(iterator -> {
-                    PeepsItem item = new PeepsItem();
+                    PeepsEntity item = new PeepsEntity();
                     item.setId(getValue(params, iterator, "id")
                             .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
                             .map(Long::valueOf)

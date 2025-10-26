@@ -1,4 +1,4 @@
-package application.entity;
+package application.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,10 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 public final class User implements UserDetails {
-    private boolean accountNonExpired = true;
-    private boolean accountNonLocked = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
     private String password;
     @Id
     private String username;

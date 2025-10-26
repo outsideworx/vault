@@ -1,7 +1,7 @@
 package application.converter.clients;
 
 import application.converter.ImageConverter;
-import application.entity.clients.ciafo.CiafoItem;
+import application.model.clients.ciafo.CiafoEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
@@ -13,7 +13,7 @@ import java.util.Objects;
 @Component
 public final class CiafoConverter extends ImageConverter {
 
-    public List<CiafoItem> filterItemsToInsert(List<CiafoItem> items) {
+    public List<CiafoEntity> filterItemsToInsert(List<CiafoEntity> items) {
         return items
                 .stream()
                 .filter(item -> Objects.isNull(item.getId()))
@@ -21,7 +21,7 @@ public final class CiafoConverter extends ImageConverter {
                 .toList();
     }
 
-    public List<CiafoItem> filterItemsToUpdate(List<CiafoItem> items) {
+    public List<CiafoEntity> filterItemsToUpdate(List<CiafoEntity> items) {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
@@ -29,20 +29,20 @@ public final class CiafoConverter extends ImageConverter {
                 .toList();
     }
 
-    public List<Long> filterIdsToDelete(List<CiafoItem> items) {
+    public List<Long> filterIdsToDelete(List<CiafoEntity> items) {
         return items
                 .stream()
                 .filter(item -> Objects.nonNull(item.getId()))
-                .filter(CiafoItem::getDelete)
-                .map(CiafoItem::getId)
+                .filter(CiafoEntity::getDelete)
+                .map(CiafoEntity::getId)
                 .toList();
     }
 
-    public List<CiafoItem> processItems(String category, Map<String, String> params, Map<String, MultipartFile> files) {
+    public List<CiafoEntity> processItems(String category, Map<String, String> params, Map<String, MultipartFile> files) {
         return getIterators(params)
                 .stream()
                 .map(iterator -> {
-                    CiafoItem item = new CiafoItem();
+                    CiafoEntity item = new CiafoEntity();
                     item.setId(getValue(params, iterator, "id")
                             .filter(id -> !StringUtils.isEmptyOrWhitespace(id))
                             .map(Long::valueOf)

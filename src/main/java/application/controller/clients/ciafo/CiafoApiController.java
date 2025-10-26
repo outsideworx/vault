@@ -1,7 +1,7 @@
 package application.controller.clients.ciafo;
 
-import application.entity.clients.ciafo.mapping.CiafoFirstImage;
-import application.entity.clients.ciafo.mapping.CiafoImages;
+import application.model.clients.ciafo.mapping.CiafoFirstImage;
+import application.model.clients.ciafo.mapping.CiafoImages;
 import application.repository.clients.CiafoRepository;
 import application.service.GrafanaService;
 import lombok.RequiredArgsConstructor;

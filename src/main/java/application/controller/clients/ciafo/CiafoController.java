@@ -2,8 +2,8 @@ package application.controller.clients.ciafo;
 
 import application.controller.ModelVisitor;
 import application.converter.clients.CiafoConverter;
-import application.entity.clients.ciafo.CiafoItem;
-import application.entity.clients.ciafo.mapping.CiafoThumbnails;
+import application.model.clients.ciafo.CiafoEntity;
+import application.model.clients.ciafo.mapping.CiafoThumbnails;
 import application.repository.clients.CiafoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ class CiafoController implements ModelVisitor {
     @PostMapping("/come-in-and-find-out")
     public String submit(@RequestParam String category, @RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) {
         log.info("Upload processor starts: come-in-and-find-out");
-        List<CiafoItem> items = ciafoConverter.processItems(category, params, files);
+        List<CiafoEntity> items = ciafoConverter.processItems(category, params, files);
         ciafoRepository.saveAll(ciafoConverter.filterItemsToInsert(items));
         ciafoConverter.filterItemsToUpdate(items).forEach(ciafoRepository::update);
         ciafoRepository.deleteAllById(ciafoConverter.filterIdsToDelete(items));

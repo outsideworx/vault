@@ -1,9 +1,9 @@
 package application.repository.clients;
 
-import application.entity.clients.ciafo.mapping.CiafoFirstImage;
-import application.entity.clients.ciafo.mapping.CiafoImages;
-import application.entity.clients.ciafo.CiafoItem;
-import application.entity.clients.ciafo.mapping.CiafoThumbnails;
+import application.model.clients.ciafo.mapping.CiafoFirstImage;
+import application.model.clients.ciafo.mapping.CiafoImages;
+import application.model.clients.ciafo.CiafoEntity;
+import application.model.clients.ciafo.mapping.CiafoThumbnails;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
+public interface CiafoRepository extends CrudRepository<CiafoEntity, Long> {
     @Cacheable(value = "ciafoItems", key = "#category")
     @Query(value = """
             SELECT id, category, description, thumbnail1, thumbnail2, thumbnail3, thumbnail4
@@ -55,5 +55,5 @@ public interface CiafoRepository extends CrudRepository<CiafoItem, Long> {
                     thumbnail4 = COALESCE(:#{#item.thumbnail4}, thumbnail4)
                     WHERE id = :#{#item.id}
             """, nativeQuery = true)
-    void update(CiafoItem item);
+    void update(CiafoEntity item);
 }

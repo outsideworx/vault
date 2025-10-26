@@ -13,7 +13,7 @@ public final class EmailService {
     @Value("${mailersend.sdk.token:#{null}}")
     private String token;
 
-    public void send(String recipient, String subject, String text) {
+    public void send(String recipient, String subject, String text) throws MailerSendException {
         Email email = new Email();
         email.setFrom("Outside Worx", "info@outsideworx.net");
         email.addRecipient(null, recipient.concat("@outsideworx.net"));
@@ -21,10 +21,6 @@ public final class EmailService {
         email.setHtml(text);
         MailerSend mailerSend = new MailerSend();
         mailerSend.setToken(token);
-        try {
-            log.info("Mail sent wih status code: [{}]", mailerSend.emails().send(email).responseStatusCode);
-        } catch (MailerSendException e) {
-            throw new IllegalStateException("Email sending failed.", e);
-        }
+        log.info("Mail sent wih status code: [{}]", mailerSend.emails().send(email).responseStatusCode);
     }
 }

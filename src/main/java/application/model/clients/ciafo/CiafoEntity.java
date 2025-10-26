@@ -1,4 +1,4 @@
-package application.entity.clients.ciafo;
+package application.model.clients.ciafo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "CIAFO")
-public final class CiafoItem {
+public final class CiafoEntity {
     @Id
     @GeneratedValue
     private Long id;

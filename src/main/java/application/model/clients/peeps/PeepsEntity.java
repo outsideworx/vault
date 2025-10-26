@@ -1,4 +1,4 @@
-package application.entity.clients.peeps;
+package application.model.clients.peeps;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "PEEPS")
-public final class PeepsItem {
+public final class PeepsEntity {
     @Id
     @GeneratedValue
     private Long id;
-    private String title;
-    private String link;
     @Transient
     private Boolean delete;
+    private String link;
+    private String title;
 }

@@ -1,6 +1,6 @@
 package application.controller.clients.peeps;
 
-import application.entity.clients.peeps.PeepsItem;
+import application.model.clients.peeps.PeepsEntity;
 import application.repository.clients.PeepsRepository;
 import application.service.GrafanaService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ final class PeepsApiController {
     private final PeepsRepository peepsRepository;
 
     @GetMapping("/api/gaiapeeps")
-    List<PeepsItem> getPeeps() {
+    List<PeepsEntity> getPeeps() {
         log.info("Incoming API request: gaiapeeps");
         grafanaService.registerRequest("gaiapeeps", "all");
         return peepsRepository.findAll();
