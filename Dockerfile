@@ -1,4 +1,4 @@
-FROM openjdk:21
+FROM openjdk:25
 COPY target/*.jar vault.jar
 
 EXPOSE 80 443
